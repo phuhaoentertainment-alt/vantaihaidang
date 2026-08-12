@@ -1,1837 +1,237 @@
 <!DOCTYPE html>
 <html lang="vi">
-
 <head>
-    <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
-    <title>Vận Tải Hải Đăng</title>
-
-    <!-- GOOGLE FONT -->
-    <link
-        rel="preconnect"
-        href="https://fonts.googleapis.com"
-    >
-
-    <link
-        rel="preconnect"
-        href="https://fonts.gstatic.com"
-        crossorigin
-    >
-
-    <link
-        href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@600;700;800&display=swap"
-        rel="stylesheet"
-    >
-
-    <style>
-
-        /* =====================================================
-           1. RESET
-        ===================================================== */
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html,
-        body {
-            width: 100%;
-            min-height: 100%;
-        }
-
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            background: #032c55;
-            overflow-x: hidden;
-        }
-
-        img,
-        video {
-            display: block;
-            max-width: 100%;
-        }
-
-
-        /* =====================================================
-           2. HEADER
-        ===================================================== */
-
-        .header {
-            width: 100%;
-            min-height: 150px;
-
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-
-            gap: 30px;
-
-            padding:
-                0
-                clamp(25px, 3vw, 60px);
-
-            background: #ffffff;
-
-            border-bottom:
-                1px solid #eeeeee;
-        }
-
-
-        /* =====================================================
-           3. LOGO + TÊN CÔNG TY
-        ===================================================== */
-
-        .brand {
-            display: flex;
-            align-items: flex-end;
-
-            min-width: 0;
-        }
-
-        .brand-logo {
-            width:
-                clamp(
-                    100px,
-                    8.4vw,
-                    160px
-                );
-
-            height:
-                clamp(
-                    80px,
-                    6.3vw,
-                    120px
-                );
-
-            object-fit: contain;
-
-            flex-shrink: 0;
-        }
-
-        .brand-name {
-            margin-left:
-                clamp(
-                    8px,
-                    0.7vw,
-                    12px
-                );
-
-            margin-bottom: 8px;
-
-            font-family:
-                "Roboto Condensed",
-                Arial,
-                sans-serif;
-
-            font-size:
-                clamp(
-                    32px,
-                    3.65vw,
-                    70px
-                );
-
-            font-weight: 700;
-
-            line-height: 0.8;
-
-            letter-spacing: 0.8px;
-
-            white-space: nowrap;
-        }
-
-        .brand-blue {
-            color: #052f5f;
-        }
-
-        .brand-red {
-            color: #d71920;
-        }
-
-
-        /* =====================================================
-           4. MENU
-        ===================================================== */
-
-        .menu {
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-
-            gap:
-                clamp(
-                    15px,
-                    2.1vw,
-                    40px
-                );
-
-            flex-shrink: 0;
-        }
-
-        .menu a {
-            color: #c91b20;
-
-            text-decoration: none;
-
-            white-space: nowrap;
-
-            font-size:
-                clamp(
-                    18px,
-                    2.08vw,
-                    40px
-                );
-
-            font-weight: 700;
-
-            transition:
-                color 0.2s ease,
-                opacity 0.2s ease;
-        }
-
-        .menu a:hover {
-            color: #052944;
-            opacity: 0.75;
-        }
-
-        .menu a.active {
-            color: #c91b20;
-        }
-
-
-        /* =====================================================
-           5. MAIN
-        ===================================================== */
-
-        main {
-            width: 100%;
-        }
-
-
-        /* =====================================================
-           6. HERO
-        ===================================================== */
-
-        .hero {
-            position: relative;
-
-            width:
-                min(
-                    100%,
-                    2050px
-                );
-
-            aspect-ratio: 16 / 9;
-
-            margin:
-                5px
-                auto
-                0;
-
-            overflow: hidden;
-
-            background: #000000;
-
-            border-radius: 8px;
-
-            box-shadow:
-                0
-                10px
-                35px
-                rgba(0, 0, 0, 0.15);
-        }
-
-
-        /* =====================================================
-           7. BACKGROUND
-        ===================================================== */
-
-        .hero-background {
-            position: absolute;
-            inset: 0;
-
-            width: 100%;
-            height: 100%;
-
-            background:
-                url("image/background.jpg")
-                center
-                center
-                / cover
-                no-repeat;
-
-            transform:
-                translateX(0);
-
-            transition:
-                transform
-                1.2s
-                cubic-bezier(.77, 0, .18, 1);
-
-            z-index: 2;
-        }
-
-
-        /* =====================================================
-           8. VIDEO
-        ===================================================== */
-
-        .hero-video {
-            position: absolute;
-            inset: 0;
-
-            width: 100%;
-            height: 100%;
-
-            background: #000000;
-
-            transform:
-                translateX(100%);
-
-            transition:
-                transform
-                1.2s
-                cubic-bezier(.77, 0, .18, 1);
-
-            z-index: 1;
-        }
-
-        .hero-video video {
-            width: 100%;
-            height: 100%;
-
-            object-fit: contain;
-
-            background: #000000;
-        }
-
-
-        /* =====================================================
-           9. TRẠNG THÁI HIỂN THỊ VIDEO
-        ===================================================== */
-
-        .hero.show-video
-        .hero-background {
-            transform:
-                translateX(-100%);
-        }
-
-        .hero.show-video
-        .hero-video {
-            transform:
-                translateX(0);
-        }
-
-
-        /* =====================================================
-           10. TRẠNG THÁI QUAY VỀ BACKGROUND
-        ===================================================== */
-
-        .hero.show-background
-        .hero-background {
-            transform:
-                translateX(0);
-        }
-
-        .hero.show-background
-        .hero-video {
-            transform:
-                translateX(-100%);
-        }
-
-
-        /* =====================================================
-           11. NÚT PC TRÊN HERO
-        ===================================================== */
-
-        .hero-content {
-            position: absolute;
-            inset: 0;
-
-            display: flex;
-            align-items: flex-end;
-            justify-content: center;
-
-            padding-bottom:
-                clamp(
-                    35px,
-                    8vw,
-                    165px
-                );
-
-            z-index: 10;
-        }
-
-
-        /* =====================================================
-           12. NÚT XEM ĐỘI XE
-        ===================================================== */
-
-        .fleet-btn {
-            width:
-                clamp(
-                    190px,
-                    15.6vw,
-                    300px
-                );
-
-            height:
-                clamp(
-                    55px,
-                    4.7vw,
-                    90px
-                );
-
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-
-            border:
-                clamp(
-                    3px,
-                    0.26vw,
-                    5px
-                )
-                solid
-                #f10606;
-
-            border-radius:
-                clamp(
-                    10px,
-                    0.8vw,
-                    15px
-                );
-
-            background: transparent;
-
-            color: #fff132;
-
-            font-size:
-                clamp(
-                    18px,
-                    2.35vw,
-                    45px
-                );
-
-            font-weight: 700;
-
-            text-decoration: none;
-
-            cursor: pointer;
-
-            transition:
-                background 0.25s ease,
-                border-color 0.25s ease,
-                transform 0.25s ease;
-        }
-
-        .fleet-btn:hover {
-            background: #d71920;
-            border-color: #d71920;
-
-            transform:
-                translateY(-2px);
-        }
-
-
-        /* =====================================================
-           13. NÚT ÂM THANH
-        ===================================================== */
-
-        .sound-btn {
-            position: absolute;
-
-            right:
-                clamp(
-                    15px,
-                    1.3vw,
-                    25px
-                );
-
-            bottom:
-                clamp(
-                    15px,
-                    1.3vw,
-                    25px
-                );
-
-            z-index: 20;
-
-            padding:
-                clamp(
-                    8px,
-                    0.65vw,
-                    12px
-                )
-                clamp(
-                    14px,
-                    1vw,
-                    20px
-                );
-
-            border: 0;
-
-            border-radius: 30px;
-
-            background:
-                rgba(
-                    0,
-                    0,
-                    0,
-                    0.65
-                );
-
-            color: #ffffff;
-
-            font-size:
-                clamp(
-                    12px,
-                    0.83vw,
-                    16px
-                );
-
-            font-weight: 700;
-
-            cursor: pointer;
-
-            white-space: nowrap;
-        }
-
-
-        /* =====================================================
-           14. MOBILE ONLY
-        ===================================================== */
-
-        .mobile-fleet {
-            display: none;
-        }
-
-        .mobile-intro {
-            display: none;
-        }
-        /* =====================================================
-   MOBILE INTRO - GIỚI THIỆU HẢI ĐĂNG
-===================================================== */
-
-.mobile-intro {
-    overflow: hidden;
-}
-
-
-/* ==============================
-   ẢNH
-============================== */
-
-.mobile-intro-image {
-    position: relative;
-
-    width: 100%;
-    height: 230px;
-
-    overflow: hidden;
-
-    background: #021f3d;
-}
-
-
-.mobile-intro-image img {
-    width: 100%;
-    height: 100%;
-
-    object-fit: cover;
-
-    transform: scale(1.02);
-}
-
-
-.mobile-intro-image-overlay {
-    position: absolute;
-    inset: 0;
-
-    background:
-        linear-gradient(
-            to bottom,
-            rgba(0, 25, 50, 0.05) 20%,
-            rgba(3, 44, 85, 0.45) 65%,
-            #032c55 100%
-        );
-}
-
-
-.mobile-intro-badge {
-    position: absolute;
-
-    left: 20px;
-    bottom: 22px;
-
-    padding: 8px 14px;
-
-    border-left: 4px solid #d71920;
-
-    background:
-        rgba(3, 44, 85, 0.85);
-
-    color: #ffffff;
-
-    font-family:
-        "Roboto Condensed",
-        Arial,
-        sans-serif;
-
-    font-size: 15px;
-    font-weight: 800;
-
-    letter-spacing: 1.3px;
-
-    backdrop-filter: blur(5px);
-}
-
-
-/* ==============================
-   KHỐI NỘI DUNG
-============================== */
-
-.mobile-intro-content {
-    position: relative;
-
-    padding:
-        12px
-        22px
-        38px;
-
-    background:
-        linear-gradient(
-            180deg,
-            #032c55 0%,
-            #02294f 100%
-        );
-
-    color: #ffffff;
-}
-
-
-/* ==============================
-   TIÊU ĐỀ NHỎ
-============================== */
-
-.mobile-intro-small-title {
-    display: block;
-
-    margin-bottom: 10px;
-
-    color: #ffcf40;
-
-    font-size: 12px;
-    font-weight: 700;
-
-    letter-spacing: 2px;
-}
-
-
-/* ==============================
-   TIÊU ĐỀ CHÍNH
-============================== */
-
-.mobile-intro-content h2 {
-    max-width: 330px;
-
-    font-family:
-        "Roboto Condensed",
-        Arial,
-        sans-serif;
-
-    font-size: 31px;
-    font-weight: 800;
-
-    line-height: 1.08;
-
-    letter-spacing: 0.2px;
-}
-
-
-.mobile-intro-content h2 span {
-    display: block;
-
-    color: #ffffff;
-}
-
-
-.mobile-intro-line {
-    width: 55px;
-    height: 4px;
-
-    margin:
-        16px
-        0
-        18px;
-
-    border-radius: 20px;
-
-    background: #d71920;
-}
-
-
-/* ==============================
-   MÔ TẢ
-============================== */
-
-.mobile-intro-description {
-    color: #d9e4ef;
-
-    font-size: 15px;
-
-    line-height: 1.72;
-}
-
-
-.mobile-intro-description strong {
-    color: #ffffff;
-
-    font-weight: 800;
-}
-
-
-/* ==============================
-   3 THÔNG SỐ
-============================== */
-
-.mobile-stats {
-    display: grid;
-
-    grid-template-columns:
-        repeat(3, 1fr);
-
-    gap: 8px;
-
-    margin:
-        26px
-        0;
-}
-
-
-.mobile-stat {
-    min-height: 115px;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
-    padding:
-        13px
-        6px;
-
-    text-align: center;
-
-    border:
-        1px solid
-        rgba(255,255,255,0.12);
-
-    border-radius: 10px;
-
-    background:
-        rgba(255,255,255,0.055);
-
-    box-shadow:
-        inset
-        0
-        1px
-        0
-        rgba(255,255,255,0.08);
-}
-
-
-.mobile-stat strong {
-    color: #ffcf40;
-
-    font-family:
-        "Roboto Condensed",
-        Arial,
-        sans-serif;
-
-    font-size: 25px;
-    font-weight: 800;
-
-    line-height: 1;
-}
-
-
-.mobile-stat span {
-    margin-top: 6px;
-
-    color: #ffffff;
-
-    font-size: 11px;
-    font-weight: 800;
-
-    letter-spacing: 0.8px;
-}
-
-
-.mobile-stat small {
-    margin-top: 7px;
-
-    color: #aebed0;
-
-    font-size: 9px;
-
-    line-height: 1.35;
-}
-
-
-/* ==============================
-   THÔNG ĐIỆP
-============================== */
-
-.mobile-message {
-    position: relative;
-
-    display: flex;
-
-    gap: 13px;
-
-    margin-top: 5px;
-
-    padding:
-        20px
-        17px;
-
-    border:
-        1px solid
-        rgba(255,255,255,0.1);
-
-    border-radius: 12px;
-
-    background:
-        linear-gradient(
-            135deg,
-            rgba(255,255,255,0.07),
-            rgba(255,255,255,0.025)
-        );
-}
-
-
-.mobile-message::before {
-    content: "";
-
-    position: absolute;
-
-    left: 0;
-    top: 17px;
-    bottom: 17px;
-
-    width: 3px;
-
-    background: #d71920;
-
-    border-radius: 5px;
-}
-
-
-.mobile-message-mark {
-    color: #ffcf40;
-
-    font-family: Georgia, serif;
-
-    font-size: 42px;
-
-    line-height: 0.8;
-}
-
-
-.mobile-message h3 {
-    color: #ffffff;
-
-    font-family:
-        "Roboto Condensed",
-        Arial,
-        sans-serif;
-
-    font-size: 18px;
-    font-weight: 800;
-
-    line-height: 1.25;
-
-    margin-bottom: 7px;
-}
-
-
-.mobile-message p {
-    color: #afc0d1;
-
-    font-size: 12px;
-
-    line-height: 1.55;
-}
-
-
-/* ==============================
-   NÚT TÌM HIỂU
-============================== */
-
-.mobile-about-btn {
-    width: 100%;
-
-    min-height: 55px;
-
-    margin-top: 24px;
-
-    padding:
-        0
-        18px;
-
-    display: flex;
-
-    align-items: center;
-    justify-content: space-between;
-
-    border:
-        1px solid
-        rgba(255,255,255,0.20);
-
-    border-radius: 8px;
-
-    background:
-        #ffffff;
-
-    color: #032c55;
-
-    text-decoration: none;
-
-    font-family:
-        "Roboto Condensed",
-        Arial,
-        sans-serif;
-
-    font-size: 15px;
-    font-weight: 800;
-
-    letter-spacing: 0.4px;
-
-    box-shadow:
-        0
-        10px
-        28px
-        rgba(0,0,0,0.16);
-
-    transition:
-        transform 0.2s ease,
-        background 0.2s ease;
-}
-
-
-.mobile-about-btn:active {
-    transform:
-        scale(0.98);
-}
-
-
-.mobile-about-arrow {
-    width: 32px;
-    height: 32px;
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 50%;
-
-    background: #d71920;
-
-    color: #ffffff;
-
-    font-size: 19px;
-}
-
-
-        /* =====================================================
-           15. <= 1200PX
-        ===================================================== */
-
-        @media (max-width: 1200px) {
-
-            .header {
-                min-height: 120px;
-
-                padding:
-                    0
-                    25px;
-
-                gap: 20px;
-            }
-
-            .brand-name {
-                font-size:
-                    clamp(
-                        28px,
-                        3.5vw,
-                        48px
-                    );
-            }
-
-            .menu {
-                gap: 18px;
-            }
-
-            .menu a {
-                font-size:
-                    clamp(
-                        17px,
-                        1.8vw,
-                        25px
-                    );
-            }
-
-        }
-
-
-        /* =====================================================
-           16. <= 900PX
-        ===================================================== */
-
-        @media (max-width: 900px) {
-
-            .header {
-                min-height: auto;
-
-                flex-direction: column;
-
-                justify-content: center;
-
-                padding:
-                    15px
-                    20px;
-
-                gap: 15px;
-            }
-
-            .brand {
-                width: 100%;
-
-                justify-content: center;
-            }
-
-            .brand-logo {
-                width: 100px;
-                height: 75px;
-            }
-
-            .brand-name {
-                margin-left: 8px;
-                margin-bottom: 7px;
-
-                font-size: 34px;
-            }
-
-            .menu {
-                width: 100%;
-
-                justify-content: center;
-
-                flex-wrap: wrap;
-
-                gap:
-                    12px
-                    20px;
-            }
-
-            .menu a {
-                font-size: 18px;
-            }
-
-            .hero {
-                margin-top: 0;
-
-                border-radius: 0;
-            }
-
-            .hero-content {
-                padding-bottom: 100px;
-            }
-
-            .fleet-btn {
-                width: 200px;
-                height: 60px;
-
-                font-size: 22px;
-            }
-
-        }
-
-
-        /* =====================================================
-           17. <= 768PX
-        ===================================================== */
-
-        @media (max-width: 768px) {
-
-            .brand-logo {
-                width: 85px;
-                height: 65px;
-            }
-
-            .brand-name {
-                font-size: 29px;
-            }
-
-            .menu {
-                gap:
-                    10px
-                    16px;
-            }
-
-            .menu a {
-                font-size: 16px;
-            }
-
-            .hero-content {
-                padding-bottom: 80px;
-            }
-
-            .fleet-btn {
-                width: 180px;
-                height: 55px;
-
-                font-size: 20px;
-
-                border-width: 3px;
-            }
-
-        }
-
-
-        /* =====================================================
-           18. MOBILE <= 500PX
-
-           PC VÀ MOBILE BẮT ĐẦU TÁCH GIAO DIỆN
-        ===================================================== */
-
-        @media (max-width: 500px) {
-
-            /* HEADER */
-
-            .header {
-                width: 100%;
-
-                padding:
-                    10px
-                    15px;
-
-                gap: 10px;
-            }
-
-            .brand-logo {
-                width: 70px;
-                height: 55px;
-            }
-
-            .brand-name {
-                margin-left: 6px;
-                margin-bottom: 5px;
-
-                font-size: 22px;
-
-                letter-spacing: 0.3px;
-            }
-
-
-            /* MENU */
-
-            .menu {
-                width: 100%;
-
-                justify-content: center;
-
-                flex-wrap: wrap;
-
-                gap:
-                    8px
-                    13px;
-            }
-
-            .menu a {
-                font-size: 14px;
-            }
-
-
-            /* HERO */
-
-            .hero {
-                width: 100%;
-
-                aspect-ratio: 16 / 9;
-
-                margin: 0;
-
-                border-radius: 0;
-            }
-
-
-            /* ẨN NÚT PC */
-
-            .hero-content {
-                display: none;
-            }
-
-
-            /* VIDEO MOBILE */
-
-            .hero-video video {
-                width: 100%;
-                height: 100%;
-
-                object-fit: contain;
-            }
-
-
-            /* SOUND MOBILE */
-
-            .sound-btn {
-                right: 10px;
-                bottom: 10px;
-
-                padding:
-                    7px
-                    10px;
-
-                font-size: 11px;
-            }
-
-
-            /* NÚT RIÊNG MOBILE */
-
-            .mobile-fleet {
-                width: 100%;
-                height: 75px;
-
-                display: flex;
-                align-items: center;
-                justify-content: center;
-
-                padding:
-                    15px
-                    0;
-
-                background: #032c55;
-            }
-
-            .mobile-fleet
-            .fleet-btn {
-                width: 150px;
-                height: 45px;
-
-                border-width: 2px;
-
-                border-radius: 8px;
-
-                font-size: 16px;
-
-                transform: none;
-            }
-
-
-            /* NỘI DUNG MOBILE SAU HERO */
-
-            .mobile-intro {
-                display: block;
-
-                width: 100%;
-
-                background: #032c55;
-            }
-
-        }
-
-
-        /* =====================================================
-           19. MOBILE RẤT NHỎ <= 380PX
-        ===================================================== */
-
-        @media (max-width: 380px) {
-
-            .brand-logo {
-                width: 60px;
-                height: 48px;
-            }
-
-            .brand-name {
-                font-size: 19px;
-            }
-
-            .menu {
-                gap:
-                    6px
-                    10px;
-            }
-
-            .menu a {
-                font-size: 13px;
-            }
-
-            .mobile-fleet {
-                height: 70px;
-            }
-
-            .mobile-fleet
-            .fleet-btn {
-                width: 135px;
-                height: 40px;
-
-                font-size: 14px;
-            }
-
-        }
-
-
-        /* =====================================================
-           20. MÀN HÌNH SIÊU LỚN
-        ===================================================== */
-
-        @media (min-width: 2051px) {
-
-            .hero {
-                max-width: 2050px;
-            }
-
-        }
-
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Vận Tải Hải Đăng</title>
+<meta name="description" content="Vận Tải Hải Đăng - vận chuyển hàng hóa đường bộ 1,5 đến 18 tấn, xe thùng kín và xe thùng bạt.">
+<link rel="stylesheet" href="styles.css">
 </head>
+<body class="home">
 
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="index.html" aria-label="Về trang chủ Vận Tải Hải Đăng">
+      <img src="image/logo.png" alt="Logo Vận Tải Hải Đăng">
+      <div class="brand-text"><span class="blue">VẬN TẢI</span> <span class="red">HẢI ĐĂNG</span></div>
+    </a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Mở menu" aria-expanded="false">☰</button>
+    <nav class="main-nav" id="mainNav" aria-label="Menu chính">
+      <a href="index.html" class="active">Trang chủ</a>
+      <a href="gioithieu.html" >Giới thiệu</a>
+      <a href="dichvu.html" >Dịch vụ</a>
+      <a href="doixe.html" >Đội xe</a>
+      <a href="lienhe.html" >Liên hệ</a>
+    </nav>
+  </div>
+</header>
 
-<body>
+<main>
+  <section class="home-hero" id="homeHero" aria-label="Giới thiệu Vận Tải Hải Đăng">
+    <div class="home-bg" id="homeBg" aria-hidden="true"></div>
 
+    <div class="home-actions">
+      <a href="doixe.html" class="fleet-btn">XEM ĐỘI XE</a>
+    </div>
 
-    <!-- =====================================================
-         HEADER
-    ===================================================== -->
+    <div class="home-video-layer" id="videoLayer">
+      <video id="heroVideo" muted autoplay playsinline webkit-playsinline preload="auto" disablepictureinpicture>
+        <source src="videoweb.mp4" type="video/mp4">
+        Trình duyệt của bạn không hỗ trợ video.
+      </video>
+      <button class="sound-btn" id="soundBtn" type="button" aria-label="Bật hoặc tắt âm thanh">🔇 Bật âm thanh</button>
+    </div>
+  </section>
 
-    <header class="header">
+  <div class="mobile-fleet">
+    <a href="doixe.html" class="fleet-btn">XEM ĐỘI XE</a>
+  </div>
 
-
-        <!-- LOGO + TÊN -->
-        <div class="brand">
-
-            <img
-                class="brand-logo"
-                src="image/logo.png"
-                alt="Logo Vận Tải Hải Đăng"
-            >
-
-            <div class="brand-name">
-
-                <span class="brand-blue">
-                    VẬN TẢI
-                </span>
-
-                <span class="brand-red">
-                    HẢI ĐĂNG
-                </span>
-
-            </div>
-
-        </div>
-
-
-        <!-- MENU -->
-        <nav
-            class="menu"
-            aria-label="Menu chính"
-        >
-
-            <a
-                href="index.html"
-                class="active"
-            >
-                Trang chủ
-            </a>
-
-            <a href="gioithieu.html">
-                Giới thiệu
-            </a>
-
-            <a href="dichvu.html">
-                Dịch vụ
-            </a>
-
-            <a href="doixe.html">
-                Đội xe
-            </a>
-
-            <a href="lienhe.html">
-                Liên hệ
-            </a>
-
-        </nav>
-
-    </header>
-
-
-    <!-- =====================================================
-         MAIN
-    ===================================================== -->
-
-    <main>
-
-
-        <!-- =================================================
-             HERO
-        ================================================== -->
-
-        <section
-            class="hero"
-            id="hero"
-        >
-
-
-            <!-- BACKGROUND -->
-            <div
-                class="hero-background"
-                aria-hidden="true"
-            ></div>
-
-
-            <!-- NÚT PC -->
-            <div class="hero-content">
-
-                <a
-                    href="doixe.html"
-                    class="fleet-btn"
-                >
-                    XEM ĐỘI XE
-                </a>
-
-            </div>
-
-
-            <!-- VIDEO -->
-            <div class="hero-video">
-
-                <video
-                    id="heroVideo"
-                    muted
-                    autoplay
-                    playsinline
-                    webkit-playsinline
-                    preload="auto"
-                    disablepictureinpicture
-                >
-                    <source
-                        src="videoweb.mp4"
-                        type="video/mp4"
-                    >
-                    Trình duyệt không hỗ trợ video.
-                </video>
-
-
-                <!-- SOUND -->
-                <button
-                    class="sound-btn"
-                    id="soundBtn"
-                    type="button"
-                    aria-label="Bật hoặc tắt âm thanh video"
-                >
-                    🔇 Bật âm thanh
-                </button>
-
-            </div>
-
-        </section>
-
-
-        <!-- =================================================
-             NÚT MOBILE
-        ================================================== -->
-
-        <div class="mobile-fleet">
-
-            <a
-                href="doixe.html"
-                class="fleet-btn"
-            >
-                XEM ĐỘI XE
-            </a>
-
-        </div>
-
-
-        <!-- =================================================
-             PHẦN SAU HERO MOBILE
-        ================================================== -->
-
-        <section class="mobile-intro">
-
-    <!-- ẢNH GIỚI THIỆU -->
+  <section class="mobile-intro">
     <div class="mobile-intro-image">
-        <img
-            src="image/anh1.png"
-            alt="Đội xe Vận Tải Hải Đăng"
-        >
-
-        <div class="mobile-intro-image-overlay"></div>
-
-        <div class="mobile-intro-badge">
-            VẬN TẢI HẢI ĐĂNG
-        </div>
+      <img src="image/anh1.png" alt="Xe thùng kín và xe thùng bạt Vận Tải Hải Đăng">
+      <div class="mobile-intro-badge">VẬN TẢI HẢI ĐĂNG</div>
     </div>
-
-
-    <!-- NỘI DUNG -->
     <div class="mobile-intro-content">
-
-        <span class="mobile-intro-small-title">
-            NĂNG LỰC VẬN CHUYỂN
-        </span>
-
-        <h2>
-            Giải pháp vận chuyển
-            <span>cho doanh nghiệp</span>
-        </h2>
-
-        <div class="mobile-intro-line"></div>
-
-        <p class="mobile-intro-description">
-            Với đội xe tải từ
-            <strong>1,5 - 18 tấn</strong>,
-            gồm xe thùng kín và xe thùng bạt,
-            Hải Đăng đáp ứng linh hoạt nhu cầu
-            vận chuyển hàng hóa trên toàn miền Bắc.
-        </p>
-
-
-        <!-- THÔNG SỐ -->
-        <div class="mobile-stats">
-
-            <div class="mobile-stat">
-                <strong>1,5 - 18</strong>
-                <span>TẤN</span>
-                <small>Đa dạng tải trọng</small>
-            </div>
-
-            <div class="mobile-stat">
-                <strong>02</strong>
-                <span>LOẠI XE</span>
-                <small>Thùng kín & thùng bạt</small>
-            </div>
-
-            <div class="mobile-stat">
-                <strong>24/7</strong>
-                <span>ĐIỀU PHỐI</span>
-                <small>Chủ động vận hành</small>
-            </div>
-
-        </div>
-
-
-        <!-- THÔNG ĐIỆP -->
-        <div class="mobile-message">
-
-            <div class="mobile-message-mark">
-                “
-            </div>
-
-            <div>
-                <h3>
-                    Mỗi chuyến hàng là một trách nhiệm.
-                </h3>
-
-                <p>
-                    Hải Đăng chú trọng khả năng điều phối,
-                    thời gian giao nhận và sự chủ động
-                    trong từng hành trình.
-                </p>
-            </div>
-
-        </div>
-
-
-        <!-- NÚT -->
-        <a
-            href="gioithieu.html"
-            class="mobile-about-btn"
-        >
-            <span>TÌM HIỂU VỀ HẢI ĐĂNG</span>
-            <span class="mobile-about-arrow">→</span>
-        </a>
-
+      <span class="mobile-intro-small">NĂNG LỰC VẬN CHUYỂN</span>
+      <h2>Giải pháp vận chuyển<br>cho doanh nghiệp</h2>
+      <div class="mobile-intro-line"></div>
+      <p class="mobile-intro-desc">Với đội xe tải từ <strong>1,5 - 18 tấn</strong>, gồm xe thùng kín và xe thùng bạt, Hải Đăng đáp ứng linh hoạt nhu cầu vận chuyển hàng hóa đường bộ.</p>
+      <div class="mobile-stats">
+        <div class="mobile-stat"><strong>1,5 - 18</strong><span>TẤN</span><small>Đa dạng tải trọng</small></div>
+        <div class="mobile-stat"><strong>02</strong><span>LOẠI XE</span><small>Thùng kín & thùng bạt</small></div>
+        <div class="mobile-stat"><strong>24/7</strong><span>ĐIỀU PHỐI</span><small>Chủ động vận hành</small></div>
+      </div>
+      <div class="mobile-message">
+        <h3>Mỗi chuyến hàng là một trách nhiệm.</h3>
+        <p>Hải Đăng chú trọng khả năng điều phối, thời gian giao nhận và sự chủ động trong từng hành trình.</p>
+      </div>
+      <a class="mobile-about" href="gioithieu.html"><span>TÌM HIỂU VỀ HẢI ĐĂNG</span><i>→</i></a>
     </div>
+  </section>
+</main>
 
-</section>
+<script src="site.js"></script>
+<script>
+(() => {
+  "use strict";
 
+  const hero = document.getElementById("homeHero");
+  const bg = document.getElementById("homeBg");
+  const layer = document.getElementById("videoLayer");
+  const video = document.getElementById("heroVideo");
+  const soundBtn = document.getElementById("soundBtn");
 
-    </main>
+  const WAIT = 5000;
+  const SLIDE = 1200;
+  const isMobile = matchMedia("(max-width:600px)").matches;
 
+  let timer = null;
+  let slideTimer = null;
+  let locked = false;
 
-    <!-- =====================================================
-         JAVASCRIPT
-    ===================================================== -->
-    <script>
-        (() => {
-            "use strict";
+  video.muted = true;
+  video.defaultMuted = true;
+  video.volume = 1;
 
-            const hero = document.getElementById("hero");
-            const video = document.getElementById("heroVideo");
-            const soundBtn = document.getElementById("soundBtn");
+  function soundLabel(){
+    soundBtn.textContent = video.muted ? "🔇 Bật âm thanh" : "🔊 Tắt âm thanh";
+  }
+  soundLabel();
 
-            const BACKGROUND_TIME = 5000;
-            const SLIDE_TIME = 1200;
+  soundBtn.addEventListener("click", async () => {
+    video.muted = !video.muted;
+    soundLabel();
+    if (video.paused) {
+      try { await video.play(); } catch (_) {}
+    }
+  });
 
-            const background = hero.querySelector(".hero-background");
-            const videoLayer = hero.querySelector(".hero-video");
+  function clearTimers(){
+    clearTimeout(timer);
+    clearTimeout(slideTimer);
+  }
 
-            const isMobile = window.matchMedia("(max-width: 500px)").matches;
+  function noTransition(){
+    bg.style.transition = "none";
+    layer.style.transition = "none";
+  }
 
-            let cycleTimer = null;
-            let transitionTimer = null;
-            let cycleLocked = false;
+  function slideTransition(){
+    const t = `transform ${SLIDE}ms cubic-bezier(.77,0,.18,1)`;
+    bg.style.transition = t;
+    layer.style.transition = t;
+  }
 
-            /* ==============================
-               CẤU HÌNH ÂM THANH
-            ============================== */
-            video.muted = true;
-            video.defaultMuted = true;
-            video.volume = 1;
+  function showBackgroundInstant(){
+    noTransition();
+    bg.style.transform = "translateX(0)";
+    layer.style.transform = "translateX(100%)";
+    void hero.offsetWidth;
+    slideTransition();
+  }
 
-            function updateSoundButton() {
-                soundBtn.textContent = video.muted
-                    ? "🔇 Bật âm thanh"
-                    : "🔊 Tắt âm thanh";
-            }
+  async function prepareVideo(){
+    video.muted = true;
+    soundLabel();
+    try{
+      if (video.readyState < 1) video.load();
+      try { video.currentTime = 0; } catch (_) {}
+      const p = video.play();
+      if (p && typeof p.then === "function") await p;
+      try { video.currentTime = 0; } catch (_) {}
+      return true;
+    }catch(err){
+      console.log("Video chưa thể autoplay:", err);
+      return false;
+    }
+  }
 
-            soundBtn.addEventListener("click", async () => {
-                video.muted = !video.muted;
-                updateSoundButton();
+  async function toVideo(){
+    if (locked) return;
+    locked = true;
+    clearTimers();
 
-                if (video.paused) {
-                    try {
-                        await video.play();
-                    } catch (error) {
-                        console.log("Không thể phát video sau khi bật âm thanh:", error);
-                    }
-                }
-            });
+    const ok = await prepareVideo();
+    if (!ok){
+      locked = false;
+      timer = setTimeout(toVideo, 1500);
+      return;
+    }
 
-            updateSoundButton();
+    noTransition();
+    bg.style.transform = "translateX(0)";
+    layer.style.transform = "translateX(100%)";
+    void hero.offsetWidth;
+    slideTransition();
 
-            /* ==============================
-               HÀM HỖ TRỢ HIỆU ỨNG
-            ============================== */
-            function clearTimers() {
-                clearTimeout(cycleTimer);
-                clearTimeout(transitionTimer);
-            }
+    requestAnimationFrame(() => {
+      bg.style.transform = "translateX(-100%)";
+      layer.style.transform = "translateX(0)";
+    });
 
-            function setNoTransition() {
-                background.style.transition = "none";
-                videoLayer.style.transition = "none";
-            }
+    slideTimer = setTimeout(() => { locked = false; }, SLIDE + 60);
+  }
 
-            function setSlideTransition() {
-                const transition = `transform ${SLIDE_TIME}ms cubic-bezier(.77, 0, .18, 1)`;
-                background.style.transition = transition;
-                videoLayer.style.transition = transition;
-            }
+  function toBackground(){
+    if (locked) return;
+    locked = true;
+    clearTimers();
 
-            function showBackgroundInstant() {
-                setNoTransition();
+    noTransition();
+    bg.style.transform = "translateX(100%)";
+    layer.style.transform = "translateX(0)";
+    void hero.offsetWidth;
+    slideTransition();
 
-                background.style.transform = "translateX(0)";
-                videoLayer.style.transform = "translateX(100%)";
+    requestAnimationFrame(() => {
+      bg.style.transform = "translateX(0)";
+      layer.style.transform = "translateX(-100%)";
+    });
 
-                void hero.offsetWidth;
-                setSlideTransition();
-            }
+    slideTimer = setTimeout(() => {
+      video.pause();
+      noTransition();
+      bg.style.transform = "translateX(0)";
+      layer.style.transform = "translateX(100%)";
+      void hero.offsetWidth;
+      slideTransition();
+      locked = false;
+      timer = setTimeout(toVideo, WAIT);
+    }, SLIDE + 60);
+  }
 
-            async function prepareVideoAtStart() {
-                video.muted = true;
-                updateSoundButton();
+  video.addEventListener("ended", toBackground);
+  video.addEventListener("error", () => {
+    clearTimers();
+    video.pause();
+    locked = false;
+    showBackgroundInstant();
+  });
 
-                try {
-                    if (video.readyState < 1) {
-                        video.load();
-                    }
+  showBackgroundInstant();
 
-                    try {
-                        video.currentTime = 0;
-                    } catch (_) {}
+  if (isMobile){
+    try{
+      const p = video.play();
+      if (p && typeof p.catch === "function") p.catch(() => {});
+    }catch(_){}
+  }else{
+    video.pause();
+    try { video.currentTime = 0; } catch (_) {}
+  }
 
-                    const playPromise = video.play();
+  timer = setTimeout(toVideo, WAIT);
 
-                    if (playPromise && typeof playPromise.then === "function") {
-                        await playPromise;
-                    }
-
-                    // Đảm bảo video bắt đầu đúng từ đầu khi xuất hiện.
-                    try {
-                        video.currentTime = 0;
-                    } catch (_) {}
-
-                    return true;
-                } catch (error) {
-                    console.log("Autoplay chưa được trình duyệt cho phép:", error);
-                    return false;
-                }
-            }
-
-            async function slideToVideo() {
-                if (cycleLocked) return;
-                cycleLocked = true;
-                clearTimers();
-
-                const canPlay = await prepareVideoAtStart();
-
-                if (!canPlay) {
-                    cycleLocked = false;
-                    // Không chuyển sang khung đen nếu autoplay bị chặn.
-                    cycleTimer = setTimeout(slideToVideo, 1500);
-                    return;
-                }
-
-                setNoTransition();
-                background.style.transform = "translateX(0)";
-                videoLayer.style.transform = "translateX(100%)";
-
-                void hero.offsetWidth;
-                setSlideTransition();
-
-                requestAnimationFrame(() => {
-                    background.style.transform = "translateX(-100%)";
-                    videoLayer.style.transform = "translateX(0)";
-                });
-
-                transitionTimer = setTimeout(() => {
-                    cycleLocked = false;
-                }, SLIDE_TIME + 50);
-            }
-
-            function slideBackToBackground() {
-                if (cycleLocked) return;
-                cycleLocked = true;
-                clearTimers();
-
-                // Chuẩn bị background ở bên PHẢI để lướt vào thay video.
-                setNoTransition();
-                background.style.transform = "translateX(100%)";
-                videoLayer.style.transform = "translateX(0)";
-
-                void hero.offsetWidth;
-                setSlideTransition();
-
-                requestAnimationFrame(() => {
-                    background.style.transform = "translateX(0)";
-                    videoLayer.style.transform = "translateX(-100%)";
-                });
-
-                transitionTimer = setTimeout(() => {
-                    video.pause();
-
-                    setNoTransition();
-                    background.style.transform = "translateX(0)";
-                    videoLayer.style.transform = "translateX(100%)";
-
-                    void hero.offsetWidth;
-                    setSlideTransition();
-
-                    cycleLocked = false;
-                    cycleTimer = setTimeout(slideToVideo, BACKGROUND_TIME);
-                }, SLIDE_TIME + 50);
-            }
-
-            video.addEventListener("ended", slideBackToBackground);
-
-            video.addEventListener("error", () => {
-                console.log("Video không tải được. Giữ background.");
-                clearTimers();
-                video.pause();
-                showBackgroundInstant();
-                cycleLocked = false;
-            });
-
-            /* =====================================================
-               PC
-               - Background 5 giây
-               - Sau đó mới phát video
-            ===================================================== */
-            async function startDesktopMode() {
-                clearTimers();
-                cycleLocked = false;
-                video.pause();
-
-                try {
-                    video.currentTime = 0;
-                } catch (_) {}
-
-                showBackgroundInstant();
-                cycleTimer = setTimeout(slideToVideo, BACKGROUND_TIME);
-            }
-
-            /* =====================================================
-               MOBILE
-               TÁCH RIÊNG:
-               - Khởi động video muted ngay khi tải trang để Safari/
-                 Chrome mobile cấp quyền autoplay.
-               - Video vẫn nằm ngoài màn hình bên phải.
-               - Đúng 5 giây sẽ tua về 00:00 rồi mới trượt vào.
-            ===================================================== */
-            async function startMobileMode() {
-                clearTimers();
-                cycleLocked = false;
-                showBackgroundInstant();
-
-                video.muted = true;
-                video.defaultMuted = true;
-                updateSoundButton();
-
-                try {
-                    video.load();
-                } catch (_) {}
-
-                // "Mồi" autoplay ngay khi trang được mở trên mobile.
-                try {
-                    const p = video.play();
-                    if (p && typeof p.catch === "function") {
-                        p.catch(() => {});
-                    }
-                } catch (_) {}
-
-                cycleTimer = setTimeout(slideToVideo, BACKGROUND_TIME);
-
-                // Dự phòng cho một số trình duyệt mobile cần lần chạm đầu tiên.
-                const unlockMobileVideo = async () => {
-                    if (!isMobile) return;
-
-                    video.muted = true;
-
-                    try {
-                        await video.play();
-                    } catch (_) {}
-
-                    document.removeEventListener("touchstart", unlockMobileVideo);
-                    document.removeEventListener("pointerdown", unlockMobileVideo);
-                };
-
-                document.addEventListener("touchstart", unlockMobileVideo, { once: true, passive: true });
-                document.addEventListener("pointerdown", unlockMobileVideo, { once: true, passive: true });
-            }
-
-            if (isMobile) {
-                startMobileMode();
-            } else {
-                startDesktopMode();
-            }
-
-            window.addEventListener("pagehide", clearTimers);
-        })();
-    </script>
-
-
-
+  const unlock = async () => {
+    if (!isMobile) return;
+    video.muted = true;
+    try { await video.play(); } catch (_) {}
+  };
+  document.addEventListener("touchstart", unlock, {once:true, passive:true});
+  document.addEventListener("pointerdown", unlock, {once:true, passive:true});
+  window.addEventListener("pagehide", clearTimers);
+})();
+</script>
 </body>
 </html>

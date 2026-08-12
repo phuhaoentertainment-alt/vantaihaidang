@@ -1,787 +1,97 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Liên hệ | Hải Đăng</title>
-    <link
-    href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@600;700;800&display=swap"
-    rel="stylesheet"
-> 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, Helvetica, sans-serif;
-        }
-        body {
-            background: #f5f6f8;
-            color: #222;
-        }
-        /* =========================
-           HERO
-        ========================= */
-        .contact-hero {
-            min-height: 430px;
-            background:
-                linear-gradient(
-                    rgba(0,0,0,0.68),
-                    rgba(0,0,0,0.68)
-                ),
-                url("https://images.unsplash.com/photo-1519003722824-194d4455a60c?auto=format&fit=crop&w=1800&q=85");
-
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: white;
-        }
-        .hero-content {
-            max-width: 850px;
-            padding: 30px;
-        }
-        .hero-tag {
-            display: inline-block;
-            background: #e53935;
-            padding: 9px 20px;
-            border-radius: 30px;
-            font-size: 25px;
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
-        .hero-content h1 {
-            font-family: "Roboto Condensed", Arial, sans-serif;      
-            font-size: 54px;
-            font-weight: 800;
-            letter-spacing: 0.5px;
-            line-height: 1.1;
-            margin-bottom: 18px;
-            text-transform: uppercase;
-            text-shadow:
-            2px 3px 8px rgba(0,0,0,0.65);
-        }
-        .hero-content p {
-            font-size: 25px;
-            line-height: 1.7;
-            color: #eeeeee;
-        }
-        /* =========================
-           KHỐI CHÍNH
-        ========================= */
-        .contact-wrapper {
-            width: 90%;
-            max-width: 1200px;
-            margin: -70px auto 80px;
-            position: relative;
-            z-index: 5;
-            display: grid;
-            grid-template-columns: 0.9fr 1.1fr;
-            gap: 30px;
-        }
-        /* =========================
-           THÔNG TIN LIÊN HỆ
-        ========================= */
-        .contact-info {
-            background: #111827;
-            color: white;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow:
-                0 20px 45px rgba(0,0,0,0.18);
-        }
-        .contact-info h2 {
-            font-size: 50px;
-            margin-bottom: 30px;
-        }
-        .contact-description {
-            color: #cbd5e1;
-            font-size: 20px;
-            line-height: 1.7;
-            margin-bottom: 25px;
-        }
-        .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            padding: 28px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.12);
-        }
-        .contact-item:last-child {
-            border-bottom: none;
-        }
-        .contact-icon {
-            width: 52px;
-            height: 52px;
-            min-width: 52px;
-            border-radius: 13px;
-            background: #e53935;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 22px;
-        }
-        .contact-item h3 {
-            font-size: 30px;
-            color: #94a3b8;
-            margin-bottom: 6px;
-            letter-spacing: .5px;
-        }
-        .contact-item a {
-            color: white;
-            text-decoration: none;
-            font-size: 20px;
-            font-weight: bold;
-            line-height: 1.8;
-        }
-        .contact-item a:hover {
-            color: #ff6b68;
-        }
-        /* =========================
-           FORM
-        ========================= */
-        .contact-form {
-            background: white;
-            padding: 50px;
-            border-radius: 1px;
-            box-shadow:
-                0 20px 45px rgba(0,0,0,0.10);
-        }
-        .contact-form h2 {
-            font-size: 45px;
-            margin-bottom: 20px;
-        }
-        .form-description {
-            color: #777;
-            font-size: 20px;
-            line-height: 1.6;
-            margin-bottom: 30px;
-        }
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 18px;
-        }
-        .form-group {
-            margin-bottom: 18px;
-        }
-        .form-group label {
-            display: block;
-            font-size: 19px;
-            font-weight: bold;
-            margin-bottom: 8px;
-        }
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            padding: 14px 15px;
-            outline: none;
-            font-size: 17px;
-            transition: .3s;
-        }
-        .form-group input {
-            height: 48px;
-        }
-        .form-group textarea {
-            height: 120px;
-            resize: vertical;
-        }
-        .form-group input:focus,
-        .form-group textarea:focus {
-            border-color: #e53935;
-            box-shadow:
-                0 0 0 3px rgba(229,57,53,0.10);
-        }
-        /* =========================
-           NÚT GỬI
-        ========================= */
-        .submit-btn {
-            width: 100%;
-            height: 52px;
-            border: none;
-            border-radius: 10px;
-            background: #e53935;
-            color: white;
-            font-size: 20px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: .3s;
-        }
-        .submit-btn:hover {
-            background: #c62828;
-            transform: translateY(-2px);
-            box-shadow:
-                0 10px 25px rgba(229,57,53,0.25);
-        }
-        /* =========================
-           LIÊN HỆ NHANH
-        ========================= */
-        .quick-section {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto 80px;
-            text-align: center;
-        }
-        .quick-section h2 {
-            font-size: 32px;
-            margin-bottom: 10px;
-        }
-        .quick-section > p {
-            color: #777;
-            margin-bottom: 30px;
-        }
-        .quick-grid {
-            display: grid;
-            grid-template-columns:
-                repeat(3, 1fr);
-            gap: 20px;
-        }
-        .quick-card {
-            background: white;
-            padding: 28px 20px;
-            border-radius: 16px;
-            text-decoration: none;
-            color: #222;
-            box-shadow:
-                0 8px 25px rgba(0,0,0,0.08);
-            transition: .3s;
-        }
-        .quick-card:hover {
-            transform: translateY(-6px);
-            box-shadow:
-                0 15px 35px rgba(0,0,0,0.12);
-        }
-        .quick-icon {
-            width: 58px;
-            height: 58px;
-            margin: 0 auto 15px;
-            border-radius: 50%;
-            background: #e53935;
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 25px;
-        }
-        .quick-card strong {
-            display: block;
-            font-size: 17px;
-            margin-bottom: 6px;
-        }
-        .quick-card span {
-            color: #777;
-            font-size: 14px;
-        }
-        /* =========================
-           BANNER CUỐI
-        ========================= */
-        .bottom-banner {
-            width: 90%;
-            max-width: 1200px;
-            min-height: 250px;
-            margin: 0 auto 70px;
-            padding: 45px;
-            border-radius: 20px;
-            background:
-                linear-gradient(
-                    90deg,
-                    rgba(180,20,20,.94),
-                    rgba(229,57,53,.82)
-                ),
-                url("https://images.unsplash.com/photo-1566576912321-d58ddd7a6088?auto=format&fit=crop&w=1600&q=85");
-            background-size: cover;
-            background-position: center;
-            color:white;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 30px;
-        }
-        .bottom-banner h2 {
-            font-size: 32px;
-            margin-bottom: 10px;
-        }
-        .bottom-banner p {
-            line-height: 1.6;
-            opacity: .92;
-        }
-        .call-button {
-            background: white;
-            color: #e53935;
-            text-decoration: none;
-            padding: 16px 28px;
-            border-radius: 10px;
-            font-size: 18px;
-            font-weight: bold;
-            white-space: nowrap;
-            transition: .3s;
-        }
-        .call-button:hover {
-            transform: scale(1.04);
-        }
-        /* =========================
-           THÔNG BÁO THÀNH CÔNG
-        ========================= */
-        .success-message {
-            position: fixed;
-            top: 25px;
-            right: 25px;
-            background: #16a34a;
-            color: white;
-            padding: 22px 25px;
-            border-radius: 14px;
-            box-shadow:
-                0 15px 40px rgba(0,0,0,0.2);
-            z-index: 9999;
-            width: 340px;
-            text-align: center;
-            animation: showMessage .4s ease;
-        }
-        .success-icon {
-            font-size: 38px;
-            margin-bottom: 7px;
-        }
-        .success-title {
-            font-size: 19px;
-            font-weight: bold;
-            margin-bottom: 6px;
-        }
-        .success-text {
-            font-size: 14px;
-            opacity: .95;
-        }
-        @keyframes showMessage {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        /* =========================
-           TABLET
-        ========================= */
-        @media (max-width: 850px) {
-            .hero-content h1 {
-                font-size: 40px;
-            }
-            .contact-wrapper {
-                grid-template-columns: 1fr;
-            }
-            .quick-grid {
-                grid-template-columns:
-                    repeat(3, 1fr);
-            }
-            .bottom-banner {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            .call-button {
-                width: 100%;
-                text-align: center;
-            }
-        }
-        /* =========================
-           MOBILE
-        ========================= */
-        @media (max-width: 600px) {
-            .contact-hero {
-                min-height: 360px;
-            }
-            .hero-content {
-                padding: 20px;
-            }
-            .hero-content h1 {
-                font-size: 31px;
-            }
-            .hero-content p {
-                font-size: 15px;
-            }
-            .contact-wrapper {
-                width: 94%;
-                margin-top: -40px;
-            }
-            .contact-info,
-            .contact-form {
-                padding: 25px;
-                border-radius: 15px;
-            }
-            .contact-info h2,
-            .contact-form h2 {
-                font-size: 25px;
-            }
-            .form-row {
-                grid-template-columns: 1fr;
-                gap: 0;
-            }
-            .quick-section {
-                width: 94%;
-            }
-            .quick-grid {
-                grid-template-columns: 1fr;
-            }
-            .bottom-banner {
-                width: 94%;
-                padding: 30px;
-            }
-            .bottom-banner h2 {
-                font-size: 25px;
-            }
-            .success-message {
-                width: calc(100% - 30px);
-                right: 15px;
-                top: 15px;
-            }
-        }
-    </style>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Liên hệ | Vận Tải Hải Đăng</title>
+<meta name="description" content="Liên hệ Vận Tải Hải Đăng để được tư vấn phương án vận chuyển và báo giá.">
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- =========================
-         PHẦN ĐẦU
-    ========================= -->
-    <section class="contact-hero">
-        <div class="hero-content">
-            <div class="hero-tag">
-                HỖ TRỢ & TƯ VẤN 24/7
-            </div>
-            <h1>
-                LIÊN HỆ VỚI CHÚNG TÔI
-            </h1>
-            <p>
-                Sẵn sàng đồng hành cùng doanh nghiệp
-                trong mọi nhu cầu vận chuyển hàng hóa
-                trên toàn miền Bắc.
-            </p>
-        </div>
-    </section>
-    <!-- =========================
-         THÔNG TIN + FORM
-    ========================= -->
-    <section class="contact-wrapper">
-        <!-- THÔNG TIN -->
-        <div class="contact-info">
-            <h2>
-                Thông tin liên hệ
-            </h2>
-            <p class="contact-description">
-                Liên hệ trực tiếp với chúng tôi để được
-                tư vấn phương án vận chuyển và báo giá
-                nhanh chóng.
-            </p>
-            <!-- CHỦ -->
-            <div class="contact-item">
-                <div class="contact-icon">
-                    ☎
-                </div>
-                <div>
-                    <h3>
-                        CHỦ DOANH NGHIỆP
-                    </h3>
-                    <a href="tel:0345273684">
-                        0345 273 684
-                    </a>
-                </div>
-            </div>
-            <!-- THƯ KÝ -->
-            <div class="contact-item">
-                <div class="contact-icon">
-                    ☎
-                </div>
-                <div>
-                    <h3>
-                        THƯ KÝ / ĐIỀU PHỐI
-                    </h3>
-                    <a href="tel:0936740583">
-                        0936 740 583
-                    </a>
-                </div>
-            </div>
-            <!-- ZALO -->
-            <div class="contact-item">
-                <div class="contact-icon">
-                    💬
-                </div>
-                <div>
-                    <h3>
-                        ZALO
-                    </h3>
-                    <a
-                        href="https://zalo.me/0345273684"
-                        target="_blank"
-                    >
-                        Zalo: 0345 273 684
-                    </a>
-                    <br>
-                    <a
-                        href="https://zalo.me/0936740583"
-                        target="_blank"
-                    >
-                        Zalo: 0936 740 583
-                    </a>
-                </div>
-            </div>
-            <!-- EMAIL -->
-            <div class="contact-item">
-                <div class="contact-icon">
-                    ✉
-                </div>
-                <div>
-                    <h3>
-                        EMAIL CÔNG TY
-                    </h3>
-                    <a
-                        href="mailto:haidang051023@gmail.com"
-                    >
-                        haidang051023@gmail.com
-                    </a>
-                </div>
-            </div>
-        </div>
-        <!-- FORM -->
-        <div class="contact-form">
-            <h2>
-                Gửi yêu cầu vận chuyển
-            </h2>
-            <p class="form-description">
-                Hãy để lại thông tin, đội ngũ của chúng tôi
-                sẽ liên hệ lại với bạn trong thời gian sớm nhất.
-            </p>
-            <form
-                action="https://formsubmit.co/haidang051023@gmail.com"
-                method="POST"
-            >
-                <!-- TIÊU ĐỀ EMAIL -->
-                <input
-                    type="hidden"
-                    name="_subject"
-                    value="YÊU CẦU VẬN CHUYỂN MỚI"
-                >
-                <!-- TẮT CAPTCHA -->
-                <input
-                    type="hidden"
-                    name="_captcha"
-                    value="false"
-                >
-                <!-- QUAY LẠI WEBSITE SAU KHI GỬI -->
-                <input
-                type="hidden"
-                    name="_next"
-                    value="https://vantaihaidangbn.vn/lienhe.html?success=1"
-                >
-                <!-- HỌ TÊN + SĐT -->
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>
-                            Họ và tên *
-                        </label>
-                        <input
-                            type="text"
-                            name="Họ và tên"
-                            placeholder="Nhập họ và tên"
-                            required
-                        >
-                    </div>
-                    <div class="form-group">
-                        <label>
-                            Số điện thoại *
-                        </label>
-                        <input
-                            type="tel"
-                            name="Số điện thoại"
-                            placeholder="Nhập số điện thoại"
-                            required
-                        >
-                    </div>
-                </div>
-                <!-- NƠI LẤY -->
-                <div class="form-group">
-                    <label>
-                        Nơi lấy hàng *
-                    </label>
-                    <input
-                        type="text"
-                        name="Nơi lấy hàng"
-                        placeholder="Ví dụ: Bắc Ninh"
-                        required
-                    >
-                </div>
-                <!-- NƠI GIAO -->
-                <div class="form-group">
-                    <label>
-                        Nơi giao hàng *
-                    </label>
-                    <input
-                        type="text"
-                        name="Nơi giao hàng"
-                        placeholder="Ví dụ: Hải Phòng"
-                        required
-                    >
-                </div>
-                <!-- LOẠI HÀNG -->
-                <div class="form-group">
-                    <label>
-                        Loại hàng / số lượng
-                    </label>
-                    <input
-                        type="text"
-                        name="Loại hàng - số lượng"
-                        placeholder="Ví dụ: Bìa carton - 5 tấn"
-                    >
-                </div>
-                <!-- GHI CHÚ -->
-                <div class="form-group">
-                    <label>
-                        Ghi chú
-                    </label>
-                    <textarea
-                        name="Ghi chú"
-                        placeholder="Thông tin thêm về yêu cầu vận chuyển..."
-                    ></textarea>
-                </div>
-                <!-- CHỈ 1 NÚT GỬI -->
-                <button
-                    type="submit"
-                    class="submit-btn"
-                >
-                    GỬI YÊU CẦU →
-                </button>
-            </form>
-        </div>
-    </section>
-    <!-- =========================
-         LIÊN HỆ NHANH
-    ========================= -->
-    <section class="quick-section">
-        <h2>
-            Liên hệ nhanh
-        </h2>
-        <p>
-            Chọn phương thức liên hệ phù hợp với bạn
-        </p>
-        <div class="quick-grid">
-            <!-- GỌI CHỦ -->
-            <a
-                href="tel:0345273684"
-                class="quick-card"
-            >
-                <div class="quick-icon">
-                    ☎
-                </div>
-                <strong>
-                    Gọi trực tiếp
-                </strong>
-                <span>
-                    0345 273 684
-                </span>
-            </a>
-            <!-- GỌI THƯ KÝ -->
-            <a
-                href="tel:0936740583"
-                class="quick-card"
-            >
-                <div class="quick-icon">
-                    ☎
-                </div>
-                <strong>
-                    Thư ký / Điều phối
-                </strong>
-                <span>
-                    0936 740 583
-                </span>
-            </a>
-            <!-- EMAIL -->
-            <a
-                href="mailto:haidang051023@gmail.com"
-                class="quick-card"
-            >
-                <div class="quick-icon">
-                    ✉
-                </div>
-                <strong>
-                    Email công ty
-                </strong>
-                <span>
-                    Gửi email trực tiếp
-                </span>
-            </a>
-        </div>
-    </section>
-    <!-- =========================
-         BANNER CUỐI
-    ========================= -->
-    <section class="bottom-banner">
-        <div>
-            <h2>
-                Cần vận chuyển hàng hóa?
-            </h2>
-            <p>
-                Liên hệ ngay để được tư vấn
-                phương án vận chuyển phù hợp.
-            </p>
-        </div>
-        <a
-            href="tel:0345273684"
-            class="call-button"
-        >
-            ☎ 0345 273 684
-        </a>
-    </section>
-    <!-- =========================
-         THÔNG BÁO GỬI THÀNH CÔNG
-    ========================= -->
-    <script>
-        const params =
-            new URLSearchParams(
-                window.location.search
-            );
-        if (
-            params.get("success") === "1"
-        ) {
-            const message =
-                document.createElement("div");
-            message.className =
-                "success-message";
-            message.innerHTML = `
-                <div class="success-icon">
-                    ✓
-                </div>
-                <div class="success-title">
-                    Gửi yêu cầu thành công!
-                </div>
-                <div class="success-text">
-                    Chúng tôi sẽ liên hệ với bạn
-                    trong thời gian sớm nhất.
-                </div>
-            `;
-            document.body.appendChild(
-                message
-            );
-            setTimeout(() => {
-                message.style.transition =
-                    "0.5s";
-                message.style.opacity =
-                    "0";
-                setTimeout(() => {
-                    message.remove();
-                }, 500);
-            }, 4500);
-            /*
-                Xóa ?success=1
-                khỏi thanh địa chỉ
-            */
-            window.history.replaceState(
-                {},
-                document.title,
-                window.location.pathname
-            );
-        }
-    </script>
-</body>
-</html>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="index.html" aria-label="Về trang chủ Vận Tải Hải Đăng">
+      <img src="image/logo.png" alt="Logo Vận Tải Hải Đăng">
+      <div class="brand-text"><span class="blue">VẬN TẢI</span> <span class="red">HẢI ĐĂNG</span></div>
+    </a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Mở menu" aria-expanded="false">☰</button>
+    <nav class="main-nav" id="mainNav" aria-label="Menu chính">
+      <a href="index.html" >Trang chủ</a>
+      <a href="gioithieu.html" >Giới thiệu</a>
+      <a href="dichvu.html" >Dịch vụ</a>
+      <a href="doixe.html" >Đội xe</a>
+      <a href="lienhe.html" class="active">Liên hệ</a>
+    </nav>
+  </div>
+</header>
+
+<section class="contact-hero">
+  <div class="contact-hero-content">
+    <div class="contact-tag">HỖ TRỢ & TƯ VẤN 24/7</div>
+    <h1>Liên hệ với chúng tôi</h1>
+    <p>Sẵn sàng đồng hành cùng doanh nghiệp trong mọi nhu cầu vận chuyển hàng hóa đường bộ.</p>
+  </div>
+</section>
+
+<section class="contact-wrap">
+  <div class="contact-info">
+    <h2>Thông tin liên hệ</h2>
+    <p class="contact-desc">Liên hệ trực tiếp với chúng tôi để được tư vấn phương án vận chuyển và báo giá nhanh chóng.</p>
+
+    <div class="contact-item"><div class="contact-icon">☎</div><div><h3>CHỦ DOANH NGHIỆP</h3><a href="tel:0345273684">0345 273 684</a></div></div>
+    <div class="contact-item"><div class="contact-icon">☎</div><div><h3>THƯ KÝ / ĐIỀU PHỐI</h3><a href="tel:0936740583">0936 740 583</a></div></div>
+    <div class="contact-item"><div class="contact-icon">💬</div><div><h3>ZALO</h3><a href="https://zalo.me/0345273684" target="_blank" rel="noopener">0345 273 684</a><br><a href="https://zalo.me/0936740583" target="_blank" rel="noopener">0936 740 583</a></div></div>
+    <div class="contact-item"><div class="contact-icon">✉</div><div><h3>EMAIL CÔNG TY</h3><a href="mailto:haidang051023@gmail.com">haidang051023@gmail.com</a></div></div>
+  </div>
+
+  <div class="contact-form">
+    <h2>Gửi yêu cầu vận chuyển</h2>
+    <p class="form-desc">Hãy để lại thông tin, đội ngũ của chúng tôi sẽ liên hệ lại với bạn trong thời gian sớm nhất.</p>
+
+    <form action="https://formsubmit.co/haidang051023@gmail.com" method="POST">
+      <input type="hidden" name="_subject" value="YÊU CẦU VẬN CHUYỂN MỚI">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_next" value="https://vantaihaidangbn.vn/lienhe.html?success=1">
+
+      <div class="form-row">
+        <div class="form-group"><label>Họ và tên *</label><input type="text" name="Họ và tên" placeholder="Nhập họ và tên" required></div>
+        <div class="form-group"><label>Số điện thoại *</label><input type="tel" name="Số điện thoại" placeholder="Nhập số điện thoại" required></div>
+      </div>
+      <div class="form-group"><label>Nơi lấy hàng *</label><input type="text" name="Nơi lấy hàng" placeholder="Ví dụ: Bắc Ninh" required></div>
+      <div class="form-group"><label>Nơi giao hàng *</label><input type="text" name="Nơi giao hàng" placeholder="Ví dụ: Hải Phòng" required></div>
+      <div class="form-group"><label>Loại hàng / số lượng</label><input type="text" name="Loại hàng - số lượng" placeholder="Ví dụ: Bìa carton - 5 tấn"></div>
+      <div class="form-group"><label>Ghi chú</label><textarea name="Ghi chú" placeholder="Thông tin thêm về yêu cầu vận chuyển..."></textarea></div>
+      <button type="submit" class="submit">GỬI YÊU CẦU →</button>
+    </form>
+  </div>
+</section>
+
+<section class="contact-quick">
+  <div class="quick-grid">
+    <a class="quick-card" href="tel:0345273684"><div>☎</div><strong>Gọi trực tiếp</strong><span>0345 273 684</span></a>
+    <a class="quick-card" href="tel:0936740583"><div>☎</div><strong>Thư ký / Điều phối</strong><span>0936 740 583</span></a>
+    <a class="quick-card" href="mailto:haidang051023@gmail.com"><div>✉</div><strong>Email công ty</strong><span>Gửi email trực tiếp</span></a>
+  </div>
+</section>
+
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div><strong>CÔNG TY TNHH VẬN TẢI HẢI ĐĂNG</strong><br>Vững hành trình · Trọn niềm tin</div>
+    <div>Hotline: 0345 273 684 · Email: haidang051023@gmail.com</div>
+  </div>
+</footer>
+<script src="site.js"></script>
+
+<script>
+const params = new URLSearchParams(location.search);
+if (params.get("success") === "1") {
+  const el = document.createElement("div");
+  el.className = "success";
+  el.innerHTML = "<strong>✓ Gửi yêu cầu thành công!</strong><br><small>Chúng tôi sẽ liên hệ với bạn trong thời gian sớm nhất.</small>";
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 4500);
+  history.replaceState({}, document.title, location.pathname);
+}
+</script>
+</body></html>
