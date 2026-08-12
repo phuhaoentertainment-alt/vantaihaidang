@@ -3,668 +3,1112 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Vận Tải Hải Đăng</title>
+
     <!-- FONT -->
     <link
         href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@600;700;800&display=swap"
         rel="stylesheet"
     >
+
     <style>
+
         /* =====================================================
            RESET
         ===================================================== */
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
+
         html,
         body {
             width: 100%;
             min-height: 100%;
         }
+
         body {
             font-family: Arial, Helvetica, sans-serif;
             background: #032c55;
             overflow-x: hidden;
         }
+
         img,
         video {
             max-width: 100%;
         }
+
+
         /* =====================================================
            HEADER
         ===================================================== */
+
         .header {
             width: 100%;
             min-height: 150px;
+
             background: #ffffff;
+
             display: flex;
             align-items: center;
             justify-content: space-between;
+
             padding: 0 clamp(25px, 3vw, 60px);
+
             border-bottom: 1px solid #eeeeee;
+
             gap: 30px;
         }
+
+
         /* =====================================================
            LOGO
         ===================================================== */
+
         .logo {
             display: flex;
             align-items: flex-end;
+
             flex-shrink: 1;
             min-width: 0;
         }
+
         .logo img {
             width: clamp(100px, 8.4vw, 160px);
             height: clamp(80px, 6.3vw, 120px);
+
             object-fit: contain;
+
             display: block;
+
             flex-shrink: 0;
         }
+
         .logo-text {
             margin-left: clamp(8px, 0.7vw, 12px);
             margin-bottom: 8px;
+
             font-family: "Roboto Condensed", Arial, sans-serif;
+
             font-size: clamp(32px, 3.65vw, 70px);
+
             font-weight: 700;
+
             letter-spacing: 0.8px;
+
             line-height: 0.8;
+
             white-space: nowrap;
         }
+
         .logo-text .van-tai {
             color: #052f5f;
         }
+
         .logo-text .hai-dang {
             color: #d71920;
-    }
+        }
+
+
         /* =====================================================
            MENU
         ===================================================== */
+
         .menu {
             display: flex;
+
             align-items: center;
             justify-content: flex-end;
+
             gap: clamp(15px, 2.1vw, 40px);
+
             flex-shrink: 0;
         }
+
         .menu a {
             font-size: clamp(18px, 2.08vw, 40px);
+
             font-weight: 700;
+
             color: #c91b20;
+
             text-decoration: none;
+
             white-space: nowrap;
+
             transition:
                 color 0.2s ease,
                 opacity 0.2s ease;
         }
+
         .menu a:hover {
             color: #052944;
             opacity: 0.75;
         }
+
         .menu .active {
             color: #c91b20;
         }
+
+
         /* =====================================================
            MAIN
         ===================================================== */
+
         main {
             width: 100%;
         }
+
+
         /* =====================================================
            HERO / BANNER
         ===================================================== */
+
         .hero {
-            /*
-                Banner luôn giữ tỷ lệ 16:9
-            */
             width: min(100%, 2050px);
+
             aspect-ratio: 16 / 9;
+
             margin: 5px auto 0;
+
             position: relative;
+
             overflow: hidden;
+
             background: #0b0b0b;
+
             border-radius: 8px;
+
             box-shadow:
                 0 10px 35px rgba(0, 0, 0, 0.15);
         }
+
+
         /* =====================================================
            BACKGROUND
         ===================================================== */
-            .hero-background {
-                position: absolute;
-                inset: 0;
-                width: 100%;
-                height: 100%;
-                background-image: url("image/background.jpg");
-                /*
-                    Giữ đúng tỷ lệ ảnh.
-                */
-                background-size: cover;
-                background-position: center;
-                background-repeat: no-repeat;
-                transform: translateX(0);
-                transition:
-                    transform 1.2s cubic-bezier(.77, 0, .18, 1);
-                z-index: 2;
-            }
+
+        .hero-background {
+            position: absolute;
+
+            inset: 0;
+
+            width: 100%;
+            height: 100%;
+
+            background-image: url("image/background.jpg");
+
+            background-size: cover;
+
+            background-position: center;
+
+            background-repeat: no-repeat;
+
+            transform: translateX(0);
+
+            transition:
+                transform 1.2s cubic-bezier(.77, 0, .18, 1);
+
+            z-index: 2;
+        }
+
+
         /* =====================================================
            VIDEO
         ===================================================== */
+
         .hero-video {
             position: absolute;
+
             inset: 0;
+
             width: 100%;
             height: 100%;
+
             background: #000;
+
             transform: translateX(100%);
+
             transition:
                 transform 1.2s cubic-bezier(.77, 0, .18, 1);
+
             z-index: 1;
         }
+
         .hero-video video {
             width: 100%;
             height: 100%;
-            /*
-                Giữ nguyên tỷ lệ video
-            */
+
             object-fit: contain;
+
             display: block;
         }
+
+
         /* =====================================================
            CHUYỂN BACKGROUND → VIDEO
         ===================================================== */
+
         .hero.show-video .hero-background {
             transform: translateX(-100%);
         }
+
         .hero.show-video .hero-video {
             transform: translateX(0);
         }
+
+
         /* =====================================================
            QUAY VIDEO → BACKGROUND
         ===================================================== */
+
         .hero.show-background .hero-background {
             transform: translateX(0);
         }
+
         .hero.show-background .hero-video {
             transform: translateX(-100%);
         }
+
+
         /* =====================================================
-           NỘI DUNG TRÊN BANNER
+           NỘI DUNG TRÊN BANNER - PC
         ===================================================== */
+
         .hero-content {
             position: absolute;
+
             left: 0;
             right: 0;
             top: 0;
+
             width: 100%;
             height: 100%;
+
             display: flex;
+
             align-items: flex-end;
             justify-content: center;
-    /* Dịch nút xuống */
+
             padding-bottom: clamp(35px, 8vw, 165px);
+
             z-index: 10;
         }
+
+
         /* =====================================================
            NÚT XEM ĐỘI XE
         ===================================================== */
+
         .hero-btn {
             display: inline-flex;
+
             align-items: center;
             justify-content: center;
+
             width: clamp(190px, 15.6vw, 300px);
+
             height: clamp(55px, 4.7vw, 90px);
+
             border:
                 clamp(3px, 0.26vw, 5px)
                 solid
                 #f10606;
+
             border-radius:
                 clamp(10px, 0.8vw, 15px);
+
             color: #fff132;
+
             background: transparent;
+
             font-size:
                 clamp(18px, 2.35vw, 45px);
+
             font-weight: 700;
+
             text-decoration: none;
+
             cursor: pointer;
-            transition:
-                all 0.3s ease;
-            /*
-                Không dùng top:315px nữa.
-            */
+
+            transition: all 0.3s ease;
+
             position: relative;
         }
+
         .hero-btn:hover {
             color: #fff132;
+
             background: #d71920;
+
             border-color: #d71920;
         }
+
+
         /* =====================================================
            NÚT ÂM THANH
         ===================================================== */
+
         #soundBtn {
             position: absolute;
+
             right: clamp(15px, 1.3vw, 25px);
+
             bottom: clamp(15px, 1.3vw, 25px);
+
             z-index: 20;
+
             padding:
                 clamp(8px, 0.65vw, 12px)
                 clamp(14px, 1vw, 20px);
+
             border: none;
+
             border-radius: 30px;
+
             background:
                 rgba(0, 0, 0, 0.65);
+
             color: white;
+
             font-size:
                 clamp(12px, 0.83vw, 16px);
+
             font-weight: 700;
+
             cursor: pointer;
+
             white-space: nowrap;
+
             transition:
                 background 0.2s ease;
         }
+
         #soundBtn:hover {
             background: rgba(0, 0, 0, 0.85);
         }
+
+
+        /* =====================================================
+           NÚT MOBILE
+           MẶC ĐỊNH: ẨN
+        ===================================================== */
+
+        .mobile-fleet-btn {
+            display: none;
+        }
+
+
+        /* =====================================================
+           PHẦN GIỚI THIỆU MOBILE
+           MẶC ĐỊNH: ẨN
+        ===================================================== */
+
+        .mobile-intro {
+            display: none;
+        }
+
+
         /* =====================================================
            LAPTOP / PC NHỎ
            1200px
         ===================================================== */
+
         @media (max-width: 1200px) {
+
             .header {
                 min-height: 120px;
-                padding:
-                    0 25px;
+
+                padding: 0 25px;
+
                 gap: 20px;
             }
+
             .logo-text {
                 font-size: clamp(28px, 3.5vw, 48px);
             }
+
             .menu {
                 gap: 18px;
             }
+
             .menu a {
                 font-size: clamp(17px, 1.8vw, 25px);
             }
         }
+
+
         /* =====================================================
            LAPTOP / PC 900px
         ===================================================== */
+
         @media (max-width: 900px) {
+
             .header {
                 min-height: auto;
-                padding:
-                    15px 20px;
+
+                padding: 15px 20px;
+
                 flex-direction: column;
+
                 justify-content: center;
+
                 gap: 15px;
             }
+
             .logo {
                 justify-content: center;
+
                 width: 100%;
             }
+
             .logo img {
                 width: 100px;
                 height: 75px;
             }
+
             .logo-text {
                 font-size: 34px;
+
                 margin-left: 8px;
                 margin-bottom: 7px;
             }
+
             .menu {
                 width: 100%;
+
                 justify-content: center;
+
                 flex-wrap: wrap;
+
                 gap: 12px 20px;
             }
+
             .menu a {
                 font-size: 18px;
             }
+
             .hero {
                 margin-top: 0;
+
                 border-radius: 0;
             }
+
             .hero-content {
                 padding-bottom: 100px;
             }
+
             .hero-btn {
                 width: 200px;
                 height: 60px;
+
                 font-size: 22px;
             }
         }
+
+
         /* =====================================================
            TABLET
            768px
         ===================================================== */
+
         @media (max-width: 768px) {
+
             .logo img {
                 width: 85px;
-
                 height: 65px;
             }
+
             .logo-text {
                 font-size: 29px;
             }
+
             .menu {
                 gap: 10px 16px;
             }
+
             .menu a {
                 font-size: 16px;
             }
+
             .hero-content {
                 padding-bottom: 80px;
             }
+
             .hero-btn {
                 width: 180px;
                 height: 55px;
+
                 font-size: 20px;
+
                 border-width: 3px;
             }
         }
+
+
         /* =====================================================
            ĐIỆN THOẠI
            500px
         ===================================================== */
+
         @media (max-width: 500px) {
+
+            /* -----------------------------------------------
+               HEADER MOBILE
+            ----------------------------------------------- */
+
             .header {
-                padding:
-                    10px 15px;
+                width: 100%;
+
+                padding: 10px 15px;
+
                 gap: 10px;
             }
+
             .logo img {
                 width: 70px;
                 height: 55px;
             }
+
             .logo-text {
                 font-size: 22px;
+
                 margin-left: 6px;
+
                 margin-bottom: 5px;
+
                 letter-spacing: 0.3px;
             }
+
             .menu {
+                width: 100%;
+
                 gap: 8px 13px;
+
+                justify-content: center;
+
+                flex-wrap: wrap;
             }
+
             .menu a {
                 font-size: 14px;
             }
+
+
+            /* -----------------------------------------------
+               HERO MOBILE
+
+               CHỈ CHỨA:
+               BACKGROUND + VIDEO
+            ----------------------------------------------- */
+
             .hero {
                 width: 100%;
+
                 aspect-ratio: 16 / 9;
+
+                margin: 0;
+
+                border-radius: 0;
+
+                overflow: hidden;
+
+                position: relative;
+
+                z-index: 1;
             }
-            /* Banner trên điện thoại chỉ chứa VIDEO + BACKGROUND */
-            /* Ẩn nút desktop trên điện thoại */
+
+
+            /* -----------------------------------------------
+               ẨN NÚT PC TRONG HERO
+            ----------------------------------------------- */
+
             .hero > .hero-content {
-                display: none;
+                display: none !important;
             }
-            /* Nút XEM ĐỘI XE nằm dưới video */
-           /* ===== NÚT XEM ĐỘI XE TRÊN ĐIỆN THOẠI ===== */
 
-.mobile-fleet-btn {
-    display: none;
-}
 
-@media (max-width: 500px) {
+            /* -----------------------------------------------
+               VIDEO MOBILE
+            ----------------------------------------------- */
 
-    .mobile-fleet-btn {
-        display: flex !important;
-        position: relative !important;
-        width: 100% !important;
-        height: 75px !important;
-        min-height: 75px !important;
-        margin: 0 !important;
-        padding: 15px 0 !important;
-        align-items: center !important;
-        justify-content: center !important;
-        background: #032c55 !important;
-        z-index: 9999 !important;
-    }
-
-    .mobile-fleet-btn .hero-btn {
-        display: flex !important;
-        position: relative !important;
-        width: 150px !important;
-        height: 45px !important;
-        margin: 0 !important;
-        padding: 0 !important;
-
-        align-items: center !important;
-        justify-content: center !important;
-
-        border: 2px solid #f10606 !important;
-        border-radius: 8px !important;
-
-        color: #fff132 !important;
-        background: transparent !important;
-
-        font-size: 16px !important;
-        font-weight: 700 !important;
-        text-decoration: none !important;
-
-        visibility: visible !important;
-        opacity: 1 !important;
-    }
-
-    .mobile-intro {
-        display: block !important;
-        width: 100% !important;
-        min-height: 200px;
-        background: #032c55 !important;
-    }
-}
-            /* Phần giới thiệu sau này - chỉ điện thoại */
-            .mobile-intro {
-                display: block;
+            .hero-video {
                 width: 100%;
-                background: #032c55;
-    }
-            .hero-btn {
-                width: 150px;
-                height: 45px;
-                font-size: 16px;
-                border-width: 2px;
-                border-radius: 8px;
+                height: 100%;
             }
+
+            .hero-video video {
+                width: 100%;
+                height: 100%;
+
+                object-fit: contain;
+            }
+
+
+            /* -----------------------------------------------
+               NÚT ÂM THANH MOBILE
+            ----------------------------------------------- */
+
             #soundBtn {
                 right: 10px;
+
                 bottom: 10px;
+
                 padding:
                     7px 10px;
+
                 font-size: 11px;
             }
+
+
+            /* -----------------------------------------------
+               NÚT XEM ĐỘI XE MOBILE
+
+               QUAN TRỌNG:
+               NẰM NGOÀI .hero
+               KHÔNG position absolute
+               KHÔNG nằm đè video
+            ----------------------------------------------- */
+
+            .mobile-fleet-btn {
+                display: flex !important;
+
+                position: relative !important;
+
+                width: 100% !important;
+
+                height: 75px !important;
+
+                min-height: 75px !important;
+
+                margin: 0 !important;
+
+                padding: 15px 0 !important;
+
+                align-items: center !important;
+
+                justify-content: center !important;
+
+                background: #032c55 !important;
+
+                z-index: 2 !important;
+
+                overflow: visible !important;
+            }
+
+
+            /* -----------------------------------------------
+               NÚT XEM ĐỘI XE
+            ----------------------------------------------- */
+
+            .mobile-fleet-btn .hero-btn {
+                display: flex !important;
+
+                position: relative !important;
+
+                width: 150px !important;
+
+                height: 45px !important;
+
+                min-width: 150px !important;
+
+                min-height: 45px !important;
+
+                margin: 0 !important;
+
+                padding: 0 !important;
+
+                align-items: center !important;
+
+                justify-content: center !important;
+
+                border:
+                    2px solid #f10606 !important;
+
+                border-radius: 8px !important;
+
+                color: #fff132 !important;
+
+                background: transparent !important;
+
+                font-size: 16px !important;
+
+                font-weight: 700 !important;
+
+                text-decoration: none !important;
+
+                visibility: visible !important;
+
+                opacity: 1 !important;
+
+                z-index: 3 !important;
+            }
+
+
+            /* -----------------------------------------------
+               PHẦN GIỚI THIỆU
+
+               LUÔN NẰM SAU NÚT
+            ----------------------------------------------- */
+
+            .mobile-intro {
+                display: block !important;
+
+                position: relative !important;
+
+                width: 100% !important;
+
+                min-height: 200px !important;
+
+                background: #032c55 !important;
+
+                z-index: 1 !important;
+
+                margin: 0 !important;
+
+                padding: 0 !important;
+            }
         }
+
+
         /* =====================================================
            ĐIỆN THOẠI RẤT NHỎ
            380px
         ===================================================== */
+
         @media (max-width: 380px) {
-        .logo img {
-            width: 60px;
-            height: 48px;
+
+            .logo img {
+                width: 60px;
+                height: 48px;
+            }
+
+            .logo-text {
+                font-size: 19px;
+            }
+
+            .menu a {
+                font-size: 13px;
+            }
+
+            .menu {
+                gap: 6px 10px;
+            }
+
+            .mobile-fleet-btn {
+                height: 70px !important;
+
+                min-height: 70px !important;
+            }
+
+            .mobile-fleet-btn .hero-btn {
+                width: 135px !important;
+
+                min-width: 135px !important;
+
+                height: 40px !important;
+
+                min-height: 40px !important;
+
+                font-size: 14px !important;
+            }
         }
-        .logo-text {
-            font-size: 19px;
-        }
-        .menu a {
-            font-size: 13px;
-        }
-        .menu {
-            gap: 6px 10px;
-        }
-        .mobile-fleet-btn .hero-btn {
-            width: 135px;
-            height: 40px;
-            font-size: 14px;
-        }
-    }
+
+
         /* =====================================================
            MÀN HÌNH CỰC LỚN
         ===================================================== */
+
         @media (min-width: 2051px) {
+
             .hero {
                 max-width: 2050px;
             }
         }
+
     </style>
 </head>
+
+
 <body>
+
+
     <!-- =====================================================
          HEADER
     ===================================================== -->
+
     <header class="header">
+
         <!-- LOGO -->
+
         <div class="logo">
+
             <img
                 src="image/logo.png"
                 alt="Vận Tải Hải Đăng"
             >
+
             <div class="logo-text">
-                <span class="van-tai">VẬN TẢI</span>
-                <span class="hai-dang">HẢI ĐĂNG</span>
+
+                <span class="van-tai">
+                    VẬN TẢI
+                </span>
+
+                <span class="hai-dang">
+                    HẢI ĐĂNG
+                </span>
+
+            </div>
+
         </div>
-        </div>
+
+
         <!-- MENU -->
+
         <nav class="menu">
+
             <a
                 href="index.html"
                 class="active"
             >
                 Trang chủ
             </a>
+
             <a href="javascript:void(0);">
                 Giới thiệu
             </a>
+
             <a href="javascript:void(0);">
                 Dịch vụ
             </a>
+
             <a href="javascript:void(0);">
                 Đội xe
             </a>
+
             <a href="lienhe.html">
                 Liên hệ
             </a>
+
         </nav>
+
     </header>
+
+
     <!-- =====================================================
          BANNER TRANG CHỦ
     ===================================================== -->
-    <main
+
+    <main>
+
+
+        <!-- =================================================
+             HERO
+
+             MOBILE:
+             CHỈ CÓ BACKGROUND + VIDEO
+        ================================================== -->
+
         <section class="hero">
-    <!-- BACKGROUND -->
-    <div class="hero-background"></div>
-    <!-- NÚT XEM ĐỘI XE - GIỮ CHO PC -->
-    <div class="hero-content">
-        <a
-            href="javascript:void(0);"
-            class="hero-btn"
-        >
-            XEM ĐỘI XE
-        </a>
-    </div>
-    <!-- VIDEO -->
+
+
+            <!-- BACKGROUND -->
+
+            <div class="hero-background"></div>
+
+
+            <!-- NÚT XEM ĐỘI XE - CHỈ PC -->
+
+            <div class="hero-content">
+
+                <a
+                    href="javascript:void(0);"
+                    class="hero-btn"
+                >
+                    XEM ĐỘI XE
+                </a>
+
+            </div>
+
+
+            <!-- VIDEO -->
+
             <div class="hero-video">
+
                 <video
                     id="heroVideo"
                     muted
                     playsinline
                     preload="auto"
                 >
+
                     <source
                         src="videoweb.mp4"
                         type="video/mp4"
                     >
+
                 </video>
+
+
+                <!-- NÚT ÂM THANH -->
+
                 <button id="soundBtn">
                     🔇 Bật âm thanh
                 </button>
+
             </div>
+
         </section>
-        <!-- CHỈ HIỆN TRÊN ĐIỆN THOẠI -->
+
+
+        <!-- =================================================
+             NÚT XEM ĐỘI XE - CHỈ MOBILE
+
+             NẰM NGOÀI HERO
+             => KHÔNG BỊ VIDEO CHE
+             => KHÔNG BỊ BACKGROUND CHE
+        ================================================== -->
+
         <div class="mobile-fleet-btn">
+
             <a
                 href="javascript:void(0);"
                 class="hero-btn"
             >
                 XEM ĐỘI XE
             </a>
+
         </div>
-        <!-- PHẦN GIỚI THIỆU SAU NÀY - CHỈ HIỆN TRÊN ĐIỆN THOẠI -->
+
+
+        <!-- =================================================
+             PHẦN GIỚI THIỆU - MOBILE
+        ================================================== -->
+
         <section class="mobile-intro">
+
         </section>
+
+
     </main>
+
+
     <!-- =====================================================
          JAVASCRIPT
     ===================================================== -->
+
     <script>
+
         const hero =
             document.querySelector(".hero");
+
         const video =
             document.getElementById("heroVideo");
+
         const soundBtn =
             document.getElementById("soundBtn");
+
+
         /* =====================================================
            SAU 5 GIÂY → HIỆN VIDEO
         ===================================================== */
+
         setTimeout(() => {
+
             hero.classList.add("show-video");
+
             video.currentTime = 0;
+
             video.play().catch(error => {
+
                 console.log(
                     "Không thể autoplay:",
                     error
                 );
+
             });
+
         }, 5000);
+
+
         /* =====================================================
            NÚT ÂM THANH
         ===================================================== */
+
         soundBtn.addEventListener(
             "click",
             () => {
+
                 if (video.muted) {
+
                     video.muted = false;
+
                     soundBtn.textContent =
                         "🔊 Tắt âm thanh";
+
                 } else {
+
                     video.muted = true;
+
                     soundBtn.textContent =
                         "🔇 Bật âm thanh";
+
                 }
+
             }
         );
+
+
         /* =====================================================
            VIDEO HẾT
            → BACKGROUND
         ===================================================== */
+
         video.addEventListener(
             "ended",
             () => {
+
                 hero.classList.remove(
                     "show-video"
                 );
+
                 hero.classList.add(
                     "show-background"
                 );
+
                 video.currentTime = 0;
+
+
                 /* BACKGROUND GIỮ 5 GIÂY */
+
                 setTimeout(() => {
+
                     hero.classList.remove(
                         "show-background"
                     );
+
                     hero.classList.add(
                         "show-video"
                     );
+
                     video.play().catch(error => {
+
                         console.log(
                             "Không thể autoplay:",
                             error
                         );
+
                     });
+
                 }, 5000);
+
             }
         );
+
     </script>
+
 </body>
 </html>
