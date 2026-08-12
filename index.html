@@ -368,11 +368,6 @@
            ĐIỆN THOẠI
            500px
         ===================================================== */
-        /* CHỈ HIỆN TRÊN ĐIỆN THOẠI */
-        .mobile-fleet-btn,
-        .mobile-intro {
-            display: none;
-        }
         @media (max-width: 500px) {
             .header {
                 padding:
@@ -405,27 +400,65 @@
                 display: none;
             }
             /* Nút XEM ĐỘI XE nằm dưới video */
-            .mobile-fleet-btn {
-                display: flex !important;
-                width: 100%;
-                min-height: 75px;
-                align-items: center;
-                justify-content: center;
-                padding: 15px 0;
-                background: #032c55;
-            }
-            .mobile-fleet-btn .hero-btn {
-                width: 150px;
-                height: 45px;
-                font-size: 16px;
-                border-width: 2px;
-                border-radius: 8px;
-            }
+           /* ===== NÚT XEM ĐỘI XE TRÊN ĐIỆN THOẠI ===== */
+
+.mobile-fleet-btn {
+    display: none;
+}
+
+@media (max-width: 500px) {
+
+    .mobile-fleet-btn {
+        display: flex !important;
+        position: relative !important;
+        width: 100% !important;
+        height: 75px !important;
+        min-height: 75px !important;
+        margin: 0 !important;
+        padding: 15px 0 !important;
+        align-items: center !important;
+        justify-content: center !important;
+        background: #032c55 !important;
+        z-index: 9999 !important;
+    }
+
+    .mobile-fleet-btn .hero-btn {
+        display: flex !important;
+        position: relative !important;
+        width: 150px !important;
+        height: 45px !important;
+        margin: 0 !important;
+        padding: 0 !important;
+
+        align-items: center !important;
+        justify-content: center !important;
+
+        border: 2px solid #f10606 !important;
+        border-radius: 8px !important;
+
+        color: #fff132 !important;
+        background: transparent !important;
+
+        font-size: 16px !important;
+        font-weight: 700 !important;
+        text-decoration: none !important;
+
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+
+    .mobile-intro {
+        display: block !important;
+        width: 100% !important;
+        min-height: 200px;
+        background: #032c55 !important;
+    }
+}
             /* Phần giới thiệu sau này - chỉ điện thoại */
             .mobile-intro {
                 display: block;
                 width: 100%;
-        background: #032c55;
+                background: #032c55;
     }
             .hero-btn {
                 width: 150px;
