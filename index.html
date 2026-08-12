@@ -908,33 +908,30 @@
 
 
             <!-- VIDEO -->
-            <div class="hero-video">
+            <!-- VIDEO -->
+<div class="hero-video">
 
-                <video
-                    id="heroVideo"
-                    muted
-                    playsinline
-                    webkit-playsinline
-                    preload="auto"
-                >
+    <video
+        id="heroVideo"
+        muted
+        playsinline
+        preload="auto"
+    >
+        <source
+            src="videoweb.mp4"
+            type="video/mp4"
+        >
+    </video>
 
-                    <source
-                        src="videoweb.mp4"
-                        type="video/mp4"
-                    >
+    <button
+        class="sound-btn"
+        id="soundBtn"
+        type="button"
+    >
+        🔇 Bật âm thanh
+    </button>
 
-                </video>
-
-
-                <button
-                    class="sound-btn"
-                    id="soundBtn"
-                    type="button"
-                >
-                    🔇 Bật âm thanh
-                </button>
-
-            </div>
+</div>
 
         </section>
 
@@ -969,65 +966,75 @@
 
     <script>
 
-        const hero =
-            document.getElementById("hero");
+    const hero =
+        document.querySelector(".hero");
 
-        const video =
-            document.getElementById("heroVideo");
+    const video =
+        document.getElementById("heroVideo");
 
-        const soundBtn =
-            document.getElementById("soundBtn");
-
-        const BACKGROUND_TIME =
-            5000;
+    const soundBtn =
+        document.getElementById("soundBtn");
 
 
-        /* =====================================================
-           PHÁT VIDEO
-        ===================================================== */
+    /* =====================================================
+       SAU 5 GIÂY → HIỆN VIDEO
+    ===================================================== */
 
-        function showVideo() {
+    setTimeout(() => {
 
-            hero.classList.remove(
-                "show-background"
+        hero.classList.add("show-video");
+
+        video.currentTime = 0;
+
+        video.play().catch(error => {
+
+            console.log(
+                "Không thể autoplay:",
+                error
             );
 
-            hero.classList.add(
-                "show-video"
-            );
+        });
 
-            video.currentTime = 0;
+    }, 5000);
 
-            video.muted = true;
 
-            const playPromise =
-                video.play();
+    /* =====================================================
+       NÚT ÂM THANH
+    ===================================================== */
 
-            if (
-                playPromise !== undefined
-            ) {
+    soundBtn.addEventListener(
+        "click",
+        () => {
 
-                playPromise.catch(
-                    error => {
+            if (video.muted) {
 
-                        console.log(
-                            "Không thể autoplay:",
-                            error
-                        );
+                video.muted = false;
 
-                    }
-                );
+                soundBtn.textContent =
+                    "🔊 Tắt âm thanh";
+
+            }
+
+            else {
+
+                video.muted = true;
+
+                soundBtn.textContent =
+                    "🔇 Bật âm thanh";
 
             }
 
         }
+    );
 
 
-        /* =====================================================
-           HIỆN BACKGROUND
-        ===================================================== */
+    /* =====================================================
+       VIDEO HẾT → BACKGROUND
+    ===================================================== */
 
-        function showBackground() {
+    video.addEventListener(
+        "ended",
+        () => {
 
             hero.classList.remove(
                 "show-video"
@@ -1037,79 +1044,36 @@
                 "show-background"
             );
 
-            video.pause();
-
             video.currentTime = 0;
 
+
+            /* BACKGROUND GIỮ 5 GIÂY */
+
+            setTimeout(() => {
+
+                hero.classList.remove(
+                    "show-background"
+                );
+
+                hero.classList.add(
+                    "show-video"
+                );
+
+                video.play().catch(error => {
+
+                    console.log(
+                        "Không thể autoplay:",
+                        error
+                    );
+
+                });
+
+            }, 5000);
+
         }
+    );
 
-
-        /* =====================================================
-           LẦN ĐẦU VÀO WEB
-        ===================================================== */
-
-        window.addEventListener(
-            "load",
-            () => {
-
-                setTimeout(
-                    showVideo,
-                    BACKGROUND_TIME
-                );
-
-            }
-        );
-
-
-        /* =====================================================
-           VIDEO HẾT
-        ===================================================== */
-
-        video.addEventListener(
-            "ended",
-            () => {
-
-                showBackground();
-
-                setTimeout(
-                    showVideo,
-                    BACKGROUND_TIME
-                );
-
-            }
-        );
-
-
-        /* =====================================================
-           BẬT / TẮT ÂM THANH
-        ===================================================== */
-
-        soundBtn.addEventListener(
-            "click",
-            () => {
-
-                video.muted =
-                    !video.muted;
-
-
-                if (video.muted) {
-
-                    soundBtn.textContent =
-                        "🔇 Bật âm thanh";
-
-                }
-
-                else {
-
-                    soundBtn.textContent =
-                        "🔊 Tắt âm thanh";
-
-                }
-
-            }
-        );
-
-    </script>
+</script>
 
 </body>
 </html>
