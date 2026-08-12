@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Đội xe | Vận Tải Hải Đăng</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap');
+
+:root{
+    --navy:#032c55;
+    --navy-deep:#021d38;
+    --navy-soft:#0a3d72;
+    --red:#d71920;
+    --gold:#f0c24a;
+    --white:#ffffff;
+    --text:#182230;
+    --muted:#6a788a;
+    --soft:#f4f7fa;
+    --line:#e5eaf0;
+    --shadow:0 18px 50px rgba(8,30,52,.12);
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+    font-family:Inter,Arial,sans-serif;
+    color:var(--text);
+    background:#fff;
+    overflow-x:hidden;
+}
+img{display:block;max-width:100%}
+a{text-decoration:none;color:inherit}
+button{font:inherit}
+.container{width:min(1180px,92%);margin:0 auto}
+
+/* HEADER */
+.site-header{
+    position:sticky;
+    top:0;
+    z-index:1000;
+    background:rgba(255,255,255,.96);
+    backdrop-filter:blur(12px);
+    border-bottom:1px solid #eef1f4;
+}
+.header-inner{
+    min-height:112px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:24px;
+}
+.brand{
+    display:flex;
+    align-items:flex-end;
+    min-width:0;
+}
+.brand img{
+    width:clamp(72px,7vw,100px);
+    height:clamp(56px,5.6vw,76px);
+    object-fit:contain;
+    flex:0 0 auto;
+}
+.brand-text{
+    margin-left:8px;
+    margin-bottom:7px;
+    font-family:"Roboto Condensed",Arial,sans-serif;
+    font-size:clamp(26px,3vw,38px);
+    font-weight:800;
+    line-height:.9;
+    white-space:nowrap;
+}
+.brand-text .blue{color:var(--navy)}
+.brand-text .red{color:var(--red)}
+
+.main-nav{
+    display:flex;
+    align-items:center;
+    justify-content:flex-end;
+    gap:clamp(18px,2.2vw,32px);
+}
+.main-nav a{
+    position:relative;
+    padding:12px 0;
+    color:#bb1c22;
+    font-family:"Roboto Condensed",Arial,sans-serif;
+    font-size:clamp(17px,1.45vw,21px);
+    font-weight:700;
+    white-space:nowrap;
+}
+.main-nav a::after{
+    content:"";
+    position:absolute;
+    left:0;
+    bottom:5px;
+    width:0;
+    height:3px;
+    border-radius:99px;
+    background:var(--navy);
+    transition:.25s ease;
+}
+.main-nav a:hover::after,
+.main-nav a.active::after{width:100%}
+.main-nav a.active{color:var(--navy)}
+
+.menu-toggle{
+    display:none;
+    width:44px;
+    height:44px;
+    border:0;
+    border-radius:10px;
+    background:var(--navy);
+    color:#fff;
+    cursor:pointer;
+    font-size:22px;
+}
+
+/* HERO */
+.page-hero{
+    position:relative;
+    min-height:clamp(480px,62vh,650px);
+    display:flex;
+    align-items:center;
+    overflow:hidden;
+    isolation:isolate;
+    background:
+        linear-gradient(105deg,rgba(2,29,56,.96) 5%,rgba(3,44,85,.82) 48%,rgba(3,44,85,.35) 100%),
+        url("image/anh1.png") center/cover no-repeat;
+}
+.page-hero::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+        radial-gradient(circle at 85% 18%,rgba(255,255,255,.18),transparent 27%),
+        linear-gradient(to top,rgba(2,18,34,.28),transparent 35%);
+    z-index:-1;
+}
+.page-hero::after{
+    content:"";
+    position:absolute;
+    right:-170px;
+    bottom:-180px;
+    width:540px;
+    height:540px;
+    border:1px solid rgba(255,255,255,.12);
+    border-radius:50%;
+    box-shadow:
+        0 0 0 70px rgba(255,255,255,.035),
+        0 0 0 140px rgba(255,255,255,.02);
+    z-index:-1;
+}
+.hero-content{
+    max-width:840px;
+    color:#fff;
+    padding:70px 0;
+}
+.hero-kicker,
+.eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    text-transform:uppercase;
+    font-weight:800;
+    letter-spacing:1.7px;
+    font-size:12px;
+}
+.hero-kicker{color:#ffd86a}
+.hero-kicker::before,
+.eyebrow::before{
+    content:"";
+    width:34px;
+    height:3px;
+    border-radius:99px;
+    background:var(--red);
+}
+.page-hero h1{
+    margin-top:16px;
+    font-family:"Roboto Condensed",Arial,sans-serif;
+    font-size:clamp(50px,7.2vw,92px);
+    line-height:.92;
+    text-transform:uppercase;
+    letter-spacing:.2px;
+}
+.page-hero p{
+    max-width:760px;
+    margin-top:22px;
+    color:#dbe7f4;
+    font-size:clamp(16px,1.35vw,20px);
+    line-height:1.75;
+}
+.hero-actions{
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
+    margin-top:30px;
+}
+.btn{
+    min-height:52px;
+    padding:0 22px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:9px;
+    font-family:"Roboto Condensed",Arial,sans-serif;
+    font-weight:800;
+    letter-spacing:.3px;
+    transition:.25s ease;
+}
+.btn-primary{
+    background:var(--red);
+    color:#fff;
+    box-shadow:0 12px 28px rgba(215,25,32,.25);
+}
+.btn-primary:hover{transform:translateY(-2px)}
+.btn-outline{
+    color:#fff;
+    border:1px solid rgba(255,255,255,.32);
+    background:rgba(255,255,255,.07);
+}
+.btn-outline:hover{background:rgba(255,255,255,.12)}
+
+/* GENERAL SECTIONS */
+.section{padding:clamp(64px,7vw,96px) 0}
+.section-soft{background:var(--soft)}
+.eyebrow{color:var(--red)}
+.section-title{
+    margin:14px 0 18px;
+    max-width:900px;
+    font-family:"Roboto Condensed",Arial,sans-serif;
+    font-size:clamp(36px,4.6vw,62px);
+    line-height:1;
+    text-transform:uppercase;
+    color:var(--navy-deep);
+}
+.section-lead{
+    max-width:800px;
+    color:var(--muted);
+    font-size:clamp(16px,1.35vw,18px);
+    line-height:1.78;
+}
+
+.grid-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:26px}
+.grid-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+.grid-4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+
+.card{
+    height:100%;
+    padding:28px;
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:18px;
+    box-shadow:0 10px 32px rgba(9,32,55,.055);
+    transition:.28s ease;
+}
+.card:hover{
+    transform:translateY(-5px);
+    box-shadow:var(--shadow);
+}
+.card-icon{
+    width:56px;
+    height:56px;
+    margin-bottom:18px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:14px;
+    background:linear-gradient(145deg,var(--red),#ad1016);
+    color:#fff;
+    font-size:25px;
+}
+.card h3{
+    margin-bottom:10px;
+    font-family:"Roboto Condensed",Arial,sans-serif;
+    font-size:26px;
+    line-height:1.1;
+    text-transform:uppercase;
+    color:var(--navy-deep);
+}
+.card p{
+    color:var(--muted);
+    font-size:15px;
+    line-height:1.72;
+}
+
+/* STATS */
+.stats{
+    margin-top:38px;
+    display:grid;
+    grid-template-columns:repeat(4,minmax(0,1fr));
+    gap:16px;
+}
+.stat{
+    min-height:150px;
+    padding:24px 18px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    border-radius:18px;
+    background:linear-gradient(160deg,var(--navy-deep),var(--navy));
+    color:#fff;
+    box-shadow:var(--shadow);
+}
+.stat strong{
+    font-family:"Roboto Condensed",Arial,sans-serif;
+    font-size:clamp(35px,3.5vw,48px);
+    line-height:1;
+    color:var(--gold);
+}
+.stat span{
+    margin-top:10px;
+    font-size:12px;
+    font-weight:800;
+    letter-spacing:1.3px;
+    text-transform:uppercase;
+    color:#d9e6f3;
+}
+
+/* SPLIT */
+.split{
+    display:grid;
+    grid-template-columns:1.05fr .95fr;
+    gap:clamp(34px,5vw,62px);
+    align-items:center;
+}
+.visual{
+    position:relative;
+}
+.visual img{
+    width:100%;
+    aspect-ratio:4/3;
+    object-fit:cover;
+    border-radius:22px;
+    box-shadow:var(--shadow);
+}
+.visual-badge{
+    position:absolute;
+    left:-20px;
+    bottom:26px;
+    padding:17px 20px;
+    border-radius:12px;
+    background:var(--red);
+    color:#fff;
+    font-family:"Roboto Condensed",Arial,sans-serif;
+    font-size:16px;
+    font-weight:800;
+    letter-spacing:.4px;
+    box-shadow:var(--shadow);
+}
+.check-list{
+    display:grid;
+    gap:15px;
+    margin-top:26px;
+}
+.check-item{
+    display:flex;
+    align-items:flex-start;
+    gap:12px;
+}
+.check-item b{
+    width:28px;
+    height:28px;
+    flex:0 0 auto;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:50%;
+    background:#e8f1fa;
+    color:var(--navy);
+}
+.check-item strong{
+    display:block;
+    margin-bottom:4px;
+    color:var(--navy-deep);
+}
+.check-item p{
+    color:var(--muted);
+    font-size:15px;
+    line-height:1.6;
+}
+
+/* CTA */
+.cta-box{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:28px;
+    padding:42px;
+    border-radius:24px;
+    background:linear-gradient(120deg,var(--red),#a80e14);
+    color:#fff;
+    box-shadow:var(--shadow);
+}
+.cta-box h2{
+    font-family:"Roboto Condensed",Arial,sans-serif;
+    font-size:clamp(30px,3vw,42px);
+    text-transform:uppercase;
+}
+.cta-box p{
+    max-width:680px;
+    margin-top:8px;
+    color:#ffe4e6;
+    line-height:1.65;
+}
+.cta-box .btn{
+    flex:0 0 auto;
+    background:#fff;
+    color:var(--red);
+}
+
+/* FOOTER */
+.site-footer{
+    padding:34px 0;
+    background:#061b31;
+    color:#c6d2df;
+}
+.footer-inner{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:24px;
+    font-size:14px;
+    line-height:1.7;
+}
+.site-footer strong{color:#fff}
+
+/* RESPONSIVE */
+@media(max-width:1100px){
+    .header-inner{min-height:98px}
+    .main-nav{gap:18px}
+    .main-nav a{font-size:17px}
+    .stats{grid-template-columns:repeat(2,1fr)}
+}
+
+@media(max-width:900px){
+    .menu-toggle{display:block}
+    .main-nav{
+        display:none;
+        position:absolute;
+        top:calc(100% + 1px);
+        left:4%;
+        right:4%;
+        padding:14px;
+        flex-direction:column;
+        align-items:stretch;
+        gap:2px;
+        border-radius:0 0 14px 14px;
+        background:#fff;
+        box-shadow:var(--shadow);
+    }
+    .main-nav.open{display:flex}
+    .main-nav a{
+        padding:12px 14px;
+        border-radius:8px;
+    }
+    .main-nav a:hover{background:#f5f7fa}
+    .main-nav a::after{display:none}
+    .grid-3{grid-template-columns:repeat(2,1fr)}
+    .grid-4{grid-template-columns:repeat(2,1fr)}
+    .split{grid-template-columns:1fr}
+    .visual{order:-1}
+    .visual-badge{left:14px}
+}
+
+@media(max-width:640px){
+    .container{width:min(94%,1180px)}
+    .header-inner{min-height:82px}
+    .brand img{width:64px;height:50px}
+    .brand-text{font-size:22px;margin-left:5px;margin-bottom:5px}
+    .page-hero{
+        min-height:470px;
+        background-position:center;
+    }
+    .hero-content{padding:58px 0}
+    .page-hero h1{font-size:48px}
+    .hero-actions{display:grid;grid-template-columns:1fr}
+    .btn{width:100%}
+    .grid-2,.grid-3,.grid-4,.stats{grid-template-columns:1fr}
+    .card{padding:24px}
+    .visual img{aspect-ratio:16/10}
+    .visual-badge{
+        left:12px;
+        right:12px;
+        bottom:12px;
+        text-align:center;
+        font-size:14px;
+    }
+    .cta-box{
+        display:block;
+        padding:28px 24px;
+    }
+    .cta-box .btn{margin-top:20px}
+    .footer-inner{
+        display:block;
+        text-align:center;
+    }
+}
+
+@media(max-width:380px){
+    .brand-text{font-size:19px}
+    .brand img{width:58px;height:46px}
+    .page-hero h1{font-size:42px}
+}
+
+.fleet-grid{
+    margin-top:38px;
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:28px;
+}
+.fleet-card{
+    position:relative;
+    min-height:440px;
+    overflow:hidden;
+    border-radius:22px;
+    background:#061b31;
+    box-shadow:var(--shadow);
+}
+.fleet-card img{
+    width:100%;
+    height:440px;
+    object-fit:cover;
+    transition:.4s ease;
+}
+.fleet-card:hover img{transform:scale(1.035)}
+.fleet-overlay{
+    position:absolute;
+    inset:0;
+    background:linear-gradient(to top,rgba(3,19,36,.96),rgba(3,19,36,.10) 65%);
+}
+.fleet-content{
+    position:absolute;
+    left:28px;
+    right:28px;
+    bottom:26px;
+    color:#fff;
+}
+.fleet-content span{
+    color:var(--gold);
+    font-size:12px;
+    font-weight:800;
+    letter-spacing:1.5px;
+}
+.fleet-content h3{
+    margin:6px 0 8px;
+    font-family:"Roboto Condensed",Arial,sans-serif;
+    font-size:38px;
+    text-transform:uppercase;
+}
+.fleet-content p{
+    color:#dce7f2;
+    line-height:1.65;
+}
+.capacity{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-top:16px;
+}
+.capacity b{
+    padding:8px 11px;
+    border-radius:999px;
+    background:rgba(255,255,255,.12);
+    color:#fff;
+    font-size:12px;
+    border:1px solid rgba(255,255,255,.14);
+}
+.gallery{
+    margin-top:34px;
+    display:grid;
+    grid-template-columns:2fr 1fr 1fr;
+    grid-template-rows:230px 230px;
+    gap:12px;
+}
+.gallery img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    border-radius:16px;
+}
+.gallery img:first-child{grid-row:1/3}
+@media(max-width:780px){
+    .fleet-grid{grid-template-columns:1fr}
+    .gallery{
+        grid-template-columns:1fr 1fr;
+        grid-template-rows:220px 180px 180px;
+    }
+    .gallery img:first-child{
+        grid-column:1/3;
+        grid-row:auto;
+    }
+}
+@media(max-width:500px){
+    .fleet-card,.fleet-card img{height:390px;min-height:390px}
+    .fleet-content{left:20px;right:20px;bottom:20px}
+    .fleet-content h3{font-size:32px}
+    .gallery{
+        grid-template-columns:1fr;
+        grid-template-rows:auto;
+    }
+    .gallery img,.gallery img:first-child{
+        grid-column:auto;
+        grid-row:auto;
+        height:220px;
+    }
+}
+</style>
+</head>
+<body>
+
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="index.html">
+      <img src="image/logo.png" alt="Logo Vận Tải Hải Đăng">
+      <div class="brand-text">
+        <span class="blue">VẬN TẢI</span>
+        <span class="red">HẢI ĐĂNG</span>
+      </div>
+    </a>
+
+    <button class="menu-toggle" id="menuToggle" aria-label="Mở menu">☰</button>
+
+    <nav class="main-nav" id="mainNav">
+      <a href="index.html">Trang chủ</a>
+      <a href="gioithieu.html" class="">Giới thiệu</a>
+      <a href="dichvu.html" class="">Dịch vụ</a>
+      <a href="doixe.html" class="active">Đội xe</a>
+      <a href="lienhe.html">Liên hệ</a>
+    </nav>
+  </div>
+</header>
+
+
+<section class="page-hero">
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-kicker">Năng lực phương tiện</div>
+      <h1>Đội xe Hải Đăng</h1>
+      <p>
+        Hệ thống phương tiện tải trọng từ 1,5 đến 18 tấn, gồm xe thùng kín và
+        xe thùng bạt, sẵn sàng đáp ứng linh hoạt nhiều nhu cầu vận chuyển hàng hóa đường bộ.
+      </p>
+      <div class="hero-actions">
+        <a href="lienhe.html" class="btn btn-primary">LIÊN HỆ ĐIỀU XE</a>
+        <a href="dichvu.html" class="btn btn-outline">XEM DỊCH VỤ</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="eyebrow">Năng lực đội xe</div>
+    <h2 class="section-title">Sẵn sàng phương tiện<br>Sẵn sàng đồng hành</h2>
+
+    <div class="stats">
+      <div class="stat"><strong>40</strong><span>Đầu xe</span></div>
+      <div class="stat"><strong>1,5–18</strong><span>Tấn tải trọng</span></div>
+      <div class="stat"><strong>02</strong><span>Dòng thùng chính</span></div>
+      <div class="stat"><strong>24/7</strong><span>Điều phối</span></div>
+    </div>
+
+    <div class="fleet-grid">
+      <article class="fleet-card">
+        <img src="image/anh1.png" alt="Xe thùng kín Vận Tải Hải Đăng">
+        <div class="fleet-overlay"></div>
+        <div class="fleet-content">
+          <span>PHƯƠNG TIỆN 01</span>
+          <h3>Xe thùng kín</h3>
+          <p>Phù hợp với hàng hóa cần che chắn tốt, hạn chế tác động từ thời tiết và môi trường bên ngoài.</p>
+          <div class="capacity"><b>1,5 tấn</b><b>3,5 tấn</b><b>5 tấn</b><b>8 tấn</b><b>10+ tấn</b></div>
+        </div>
+      </article>
+
+      <article class="fleet-card">
+        <img src="image/anh1.png" alt="Xe thùng bạt Vận Tải Hải Đăng">
+        <div class="fleet-overlay"></div>
+        <div class="fleet-content">
+          <span>PHƯƠNG TIỆN 02</span>
+          <h3>Xe thùng bạt</h3>
+          <p>Linh hoạt trong bốc xếp và giao nhận, phù hợp với nhiều nhóm hàng và tuyến vận chuyển khác nhau.</p>
+          <div class="capacity"><b>3,5 tấn</b><b>5 tấn</b><b>8 tấn</b><b>10 tấn</b><b>18 tấn</b></div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section section-soft">
+  <div class="container split">
+    <div>
+      <div class="eyebrow">Cơ sở vật chất</div>
+      <h2 class="section-title">Kho bãi và năng lực điều phối</h2>
+      <p class="section-lead">
+        Sự kết hợp giữa đội xe phù hợp, kho bãi chủ động và điều vận linh hoạt
+        giúp Hải Đăng kiểm soát tốt quá trình vận chuyển từ tiếp nhận yêu cầu đến giao nhận.
+      </p>
+
+      <div class="check-list">
+        <div class="check-item"><b>✓</b><div><strong>Kho bãi 1.600m²</strong><p>Hỗ trợ tổ chức, tập kết và điều phối phương tiện.</p></div></div>
+        <div class="check-item"><b>✓</b><div><strong>Chủ động phương tiện</strong><p>Lựa chọn tải trọng phù hợp với từng nhu cầu vận chuyển.</p></div></div>
+        <div class="check-item"><b>✓</b><div><strong>Điều vận linh hoạt</strong><p>Theo dõi hành trình và phối hợp xử lý phát sinh nhanh chóng.</p></div></div>
+      </div>
+    </div>
+
+    <div class="visual">
+      <img src="image/anh1.png" alt="Bãi xe Vận Tải Hải Đăng">
+      <div class="visual-badge">40 ĐẦU XE · 1.600M² KHO BÃI</div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="eyebrow">Hình ảnh phương tiện</div>
+    <h2 class="section-title">Đội xe trong vận hành</h2>
+    <p class="section-lead">
+      Khu vực này có thể thay dần bằng ảnh xe thật đã chụp để tăng độ tin cậy và tính thuyết phục cho khách hàng doanh nghiệp.
+    </p>
+
+    <div class="gallery">
+      <img src="image/anh1.png" alt="Đội xe Hải Đăng">
+      <img src="image/background.jpg" alt="Xe Hải Đăng">
+      <img src="image/anh1.png" alt="Xe thùng kín Hải Đăng">
+      <img src="image/background.jpg" alt="Xe thùng bạt Hải Đăng">
+      <img src="image/anh1.png" alt="Năng lực vận tải Hải Đăng">
+    </div>
+  </div>
+</section>
+
+<section class="section section-soft">
+  <div class="container">
+    <div class="cta-box">
+      <div>
+        <h2>Cần phương tiện phù hợp với lô hàng?</h2>
+        <p>Liên hệ Hải Đăng để được tư vấn tải trọng, loại thùng và phương án vận chuyển phù hợp.</p>
+      </div>
+      <a href="lienhe.html" class="btn">LIÊN HỆ ĐIỀU XE →</a>
+    </div>
+  </div>
+</section>
+
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div>
+      <strong>CÔNG TY TNHH VẬN TẢI HẢI ĐĂNG</strong><br>
+      Vững hành trình · Trọn niềm tin
+    </div>
+    <div>
+      Hotline: 0345 273 684 · Email: haidang051023@gmail.com
+    </div>
+  </div>
+</footer>
+
+<script>
+const menuToggle = document.getElementById("menuToggle");
+const mainNav = document.getElementById("mainNav");
+menuToggle?.addEventListener("click", () => {
+    mainNav.classList.toggle("open");
+});
+</script>
+
+</body>
+</html>
