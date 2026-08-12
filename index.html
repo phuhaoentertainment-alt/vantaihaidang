@@ -982,21 +982,18 @@
 
                 <video
                     id="heroVideo"
-                    autoplay
                     muted
+                    autoplay
                     playsinline
                     webkit-playsinline
                     preload="auto"
-                    poster="image/background.jpg"
+                    disablepictureinpicture
                 >
-
                     <source
                         src="videoweb.mp4"
                         type="video/mp4"
                     >
-
                     Trình duyệt không hỗ trợ video.
-
                 </video>
 
 
@@ -1046,7 +1043,6 @@
     <!-- =====================================================
          JAVASCRIPT
     ===================================================== -->
-
     <script>
         (() => {
             "use strict";
@@ -1056,176 +1052,256 @@
             const soundBtn = document.getElementById("soundBtn");
 
             const BACKGROUND_TIME = 5000;
-            let timer = null;
-            let cycleId = 0;
+            const SLIDE_TIME = 1200;
 
-            function clearTimer() {
-                if (timer !== null) {
-                    clearTimeout(timer);
-                    timer = null;
-                }
-            }
+            const background = hero.querySelector(".hero-background");
+            const videoLayer = hero.querySelector(".hero-video");
+
+            const isMobile = window.matchMedia("(max-width: 500px)").matches;
+
+            let cycleTimer = null;
+            let transitionTimer = null;
+            let cycleLocked = false;
+
+            /* ==============================
+               CẤU HÌNH ÂM THANH
+            ============================== */
+            video.muted = true;
+            video.defaultMuted = true;
+            video.volume = 1;
 
             function updateSoundButton() {
-                const muted = video.muted;
-                soundBtn.textContent = muted
+                soundBtn.textContent = video.muted
                     ? "🔇 Bật âm thanh"
                     : "🔊 Tắt âm thanh";
-                soundBtn.setAttribute(
-                    "aria-label",
-                    muted ? "Bật âm thanh video" : "Tắt âm thanh video"
-                );
             }
 
-            function showBackground() {
-                hero.classList.remove("show-video");
-                hero.classList.add("show-background");
-            }
-
-            function showVideo() {
-                hero.classList.remove("show-background");
-                hero.classList.add("show-video");
-            }
-
-            function forceMutedAutoplayMode() {
-                video.muted = true;
-                video.defaultMuted = true;
-                video.setAttribute("muted", "");
-                video.setAttribute("playsinline", "");
-                video.setAttribute("webkit-playsinline", "");
+            soundBtn.addEventListener("click", async () => {
+                video.muted = !video.muted;
                 updateSoundButton();
-            }
 
-            async function primeVideo() {
-                forceMutedAutoplayMode();
-
-                try {
-                    const result = video.play();
-                    if (result !== undefined) {
-                        await result;
+                if (video.paused) {
+                    try {
+                        await video.play();
+                    } catch (error) {
+                        console.log("Không thể phát video sau khi bật âm thanh:", error);
                     }
-                    return true;
-                } catch (error) {
-                    console.warn("Mobile chưa cho autoplay video:", error);
-                    return false;
                 }
+            });
+
+            updateSoundButton();
+
+            /* ==============================
+               HÀM HỖ TRỢ HIỆU ỨNG
+            ============================== */
+            function clearTimers() {
+                clearTimeout(cycleTimer);
+                clearTimeout(transitionTimer);
             }
 
-            async function revealVideo(id) {
-                if (id !== cycleId) return;
+            function setNoTransition() {
+                background.style.transition = "none";
+                videoLayer.style.transition = "none";
+            }
 
-                forceMutedAutoplayMode();
+            function setSlideTransition() {
+                const transition = `transform ${SLIDE_TIME}ms cubic-bezier(.77, 0, .18, 1)`;
+                background.style.transition = transition;
+                videoLayer.style.transition = transition;
+            }
+
+            function showBackgroundInstant() {
+                setNoTransition();
+
+                background.style.transform = "translateX(0)";
+                videoLayer.style.transform = "translateX(100%)";
+
+                void hero.offsetWidth;
+                setSlideTransition();
+            }
+
+            async function prepareVideoAtStart() {
+                video.muted = true;
+                updateSoundButton();
 
                 try {
-                    if (video.readyState === 0) {
+                    if (video.readyState < 1) {
                         video.load();
                     }
 
-                    // Video đã được chạy ẩn để iPhone/Android cấp quyền autoplay.
-                    // Đủ 5 giây mới tua về 00:00 và đưa video ra màn hình.
                     try {
                         video.currentTime = 0;
                     } catch (_) {}
 
-                    const result = video.play();
-                    if (result !== undefined) {
-                        await result;
+                    const playPromise = video.play();
+
+                    if (playPromise && typeof playPromise.then === "function") {
+                        await playPromise;
                     }
 
-                    if (id !== cycleId) return;
-                    showVideo();
+                    // Đảm bảo video bắt đầu đúng từ đầu khi xuất hiện.
+                    try {
+                        video.currentTime = 0;
+                    } catch (_) {}
+
+                    return true;
                 } catch (error) {
-                    // Nếu điện thoại đang chặn autoplay (ví dụ Low Power/Data Saver),
-                    // giữ background thay vì tạo màn hình đen. Lần chạm đầu tiên sẽ mở khóa.
-                    console.warn("Không thể tự phát video trên thiết bị này:", error);
-                    showBackground();
+                    console.log("Autoplay chưa được trình duyệt cho phép:", error);
+                    return false;
                 }
             }
 
-            function startBackgroundCountdown() {
-                clearTimer();
-                const id = ++cycleId;
+            async function slideToVideo() {
+                if (cycleLocked) return;
+                cycleLocked = true;
+                clearTimers();
 
-                showBackground();
+                const canPlay = await prepareVideoAtStart();
 
-                // Quan trọng cho mobile: cho video autoplay muted ở phía sau ngay từ đầu.
-                // Background vẫn che video đủ 5 giây.
-                primeVideo();
+                if (!canPlay) {
+                    cycleLocked = false;
+                    // Không chuyển sang khung đen nếu autoplay bị chặn.
+                    cycleTimer = setTimeout(slideToVideo, 1500);
+                    return;
+                }
 
-                timer = setTimeout(() => {
-                    revealVideo(id);
-                }, BACKGROUND_TIME);
+                setNoTransition();
+                background.style.transform = "translateX(0)";
+                videoLayer.style.transform = "translateX(100%)";
+
+                void hero.offsetWidth;
+                setSlideTransition();
+
+                requestAnimationFrame(() => {
+                    background.style.transform = "translateX(-100%)";
+                    videoLayer.style.transform = "translateX(0)";
+                });
+
+                transitionTimer = setTimeout(() => {
+                    cycleLocked = false;
+                }, SLIDE_TIME + 50);
             }
 
-            function resetAfterEnded() {
-                clearTimer();
+            function slideBackToBackground() {
+                if (cycleLocked) return;
+                cycleLocked = true;
+                clearTimers();
+
+                // Chuẩn bị background ở bên PHẢI để lướt vào thay video.
+                setNoTransition();
+                background.style.transform = "translateX(100%)";
+                videoLayer.style.transform = "translateX(0)";
+
+                void hero.offsetWidth;
+                setSlideTransition();
+
+                requestAnimationFrame(() => {
+                    background.style.transform = "translateX(0)";
+                    videoLayer.style.transform = "translateX(-100%)";
+                });
+
+                transitionTimer = setTimeout(() => {
+                    video.pause();
+
+                    setNoTransition();
+                    background.style.transform = "translateX(0)";
+                    videoLayer.style.transform = "translateX(100%)";
+
+                    void hero.offsetWidth;
+                    setSlideTransition();
+
+                    cycleLocked = false;
+                    cycleTimer = setTimeout(slideToVideo, BACKGROUND_TIME);
+                }, SLIDE_TIME + 50);
+            }
+
+            video.addEventListener("ended", slideBackToBackground);
+
+            video.addEventListener("error", () => {
+                console.log("Video không tải được. Giữ background.");
+                clearTimers();
+                video.pause();
+                showBackgroundInstant();
+                cycleLocked = false;
+            });
+
+            /* =====================================================
+               PC
+               - Background 5 giây
+               - Sau đó mới phát video
+            ===================================================== */
+            async function startDesktopMode() {
+                clearTimers();
+                cycleLocked = false;
                 video.pause();
 
                 try {
                     video.currentTime = 0;
                 } catch (_) {}
 
-                startBackgroundCountdown();
+                showBackgroundInstant();
+                cycleTimer = setTimeout(slideToVideo, BACKGROUND_TIME);
             }
 
-            soundBtn.addEventListener("click", async (event) => {
-                event.stopPropagation();
+            /* =====================================================
+               MOBILE
+               TÁCH RIÊNG:
+               - Khởi động video muted ngay khi tải trang để Safari/
+                 Chrome mobile cấp quyền autoplay.
+               - Video vẫn nằm ngoài màn hình bên phải.
+               - Đúng 5 giây sẽ tua về 00:00 rồi mới trượt vào.
+            ===================================================== */
+            async function startMobileMode() {
+                clearTimers();
+                cycleLocked = false;
+                showBackgroundInstant();
+
+                video.muted = true;
+                video.defaultMuted = true;
+                updateSoundButton();
 
                 try {
-                    if (video.paused) {
-                        await video.play();
+                    video.load();
+                } catch (_) {}
+
+                // "Mồi" autoplay ngay khi trang được mở trên mobile.
+                try {
+                    const p = video.play();
+                    if (p && typeof p.catch === "function") {
+                        p.catch(() => {});
                     }
+                } catch (_) {}
 
-                    video.muted = !video.muted;
-                    updateSoundButton();
-                } catch (error) {
-                    console.warn("Không thể bật video/âm thanh:", error);
-                }
-            });
+                cycleTimer = setTimeout(slideToVideo, BACKGROUND_TIME);
 
-            video.addEventListener("ended", resetAfterEnded);
+                // Dự phòng cho một số trình duyệt mobile cần lần chạm đầu tiên.
+                const unlockMobileVideo = async () => {
+                    if (!isMobile) return;
 
-            video.addEventListener("error", () => {
-                console.warn("Không tải được videoweb.mp4");
-                showBackground();
-            });
+                    video.muted = true;
 
-            // iPhone/Safari có thể chặn autoplay trong Low Power Mode hoặc Data Saver.
-            // Chỉ cần người dùng chạm màn hình một lần, video sẽ được mở khóa ở chế độ muted.
-            const unlockOnFirstInteraction = () => {
-                if (!hero.classList.contains("show-video")) {
-                    primeVideo();
-                }
-            };
+                    try {
+                        await video.play();
+                    } catch (_) {}
 
-            document.addEventListener("touchstart", unlockOnFirstInteraction, {
-                once: true,
-                passive: true
-            });
+                    document.removeEventListener("touchstart", unlockMobileVideo);
+                    document.removeEventListener("pointerdown", unlockMobileVideo);
+                };
 
-            document.addEventListener("pointerdown", unlockOnFirstInteraction, {
-                once: true,
-                passive: true
-            });
+                document.addEventListener("touchstart", unlockMobileVideo, { once: true, passive: true });
+                document.addEventListener("pointerdown", unlockMobileVideo, { once: true, passive: true });
+            }
 
-            document.addEventListener("visibilitychange", () => {
-                if (document.hidden) {
-                    clearTimer();
-                    return;
-                }
+            if (isMobile) {
+                startMobileMode();
+            } else {
+                startDesktopMode();
+            }
 
-                if (hero.classList.contains("show-video")) {
-                    video.play().catch(() => startBackgroundCountdown());
-                } else {
-                    startBackgroundCountdown();
-                }
-            });
-
-            forceMutedAutoplayMode();
-            video.load();
-            startBackgroundCountdown();
+            window.addEventListener("pagehide", clearTimers);
         })();
     </script>
+
 
 
 </body>
