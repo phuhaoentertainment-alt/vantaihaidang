@@ -406,7 +406,7 @@
             }
             /* Nút XEM ĐỘI XE nằm dưới video */
             .mobile-fleet-btn {
-                display: flex;
+                display: flex !important;
                 width: 100%;
                 min-height: 75px;
                 align-items: center;
@@ -447,28 +447,25 @@
            380px
         ===================================================== */
         @media (max-width: 380px) {
-            .logo img {
-                width: 60px;
-                height: 48px;
-            }
-            .logo-text {
-                font-size: 19px;
-            }
-            .menu a {
-                font-size: 13px;
-            }
-            .menu {
-                gap: 6px 10px;
-            }
-            .hero-content {
-                padding-bottom: 35px;
-            }
-            .hero-btn {
-                width: 135px;
-                height: 40px;
-                font-size: 14px;
-            }
+        .logo img {
+            width: 60px;
+            height: 48px;
         }
+        .logo-text {
+            font-size: 19px;
+        }
+        .menu a {
+            font-size: 13px;
+        }
+        .menu {
+            gap: 6px 10px;
+        }
+        .mobile-fleet-btn .hero-btn {
+            width: 135px;
+            height: 40px;
+            font-size: 14px;
+        }
+    }
         /* =====================================================
            MÀN HÌNH CỰC LỚN
         ===================================================== */
