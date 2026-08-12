@@ -65,17 +65,19 @@
         .logo-text {
             margin-left: clamp(8px, 0.7vw, 12px);
             margin-bottom: 8px;
-            color: #d71920;
             font-family: "Roboto Condensed", Arial, sans-serif;
-            /*
-                Tự co giãn theo màn hình
-            */
             font-size: clamp(32px, 3.65vw, 70px);
             font-weight: 700;
             letter-spacing: 0.8px;
             line-height: 0.8;
             white-space: nowrap;
         }
+        .logo-text .van-tai {
+            color: #052f5f;
+        }
+        .logo-text .hai-dang {
+            color: #d71920;
+    }
         /* =====================================================
            MENU
         ===================================================== */
@@ -461,8 +463,9 @@
                 alt="Vận Tải Hải Đăng"
             >
             <div class="logo-text">
-                VẬN TẢI HẢI ĐĂNG
-            </div>
+                <span class="van-tai">VẬN TẢI</span>
+                <span class="hai-dang">HẢI ĐĂNG</span>
+        </div>
         </div>
         <!-- MENU -->
         <nav class="menu">
