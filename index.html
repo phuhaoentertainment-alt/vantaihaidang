@@ -982,9 +982,12 @@
 
                 <video
                     id="heroVideo"
+                    autoplay
                     muted
                     playsinline
+                    webkit-playsinline
                     preload="auto"
+                    poster="image/background.jpg"
                 >
 
                     <source
@@ -1053,10 +1056,8 @@
             const soundBtn = document.getElementById("soundBtn");
 
             const BACKGROUND_TIME = 5000;
-            const SLIDE_TIME = 1200;
-
             let timer = null;
-            let cycleToken = 0;
+            let cycleId = 0;
 
             function clearTimer() {
                 if (timer !== null) {
@@ -1065,129 +1066,164 @@
                 }
             }
 
-            function setSoundButton() {
-                if (video.muted) {
-                    soundBtn.textContent = "🔇 Bật âm thanh";
-                    soundBtn.setAttribute("aria-label", "Bật âm thanh video");
-                } else {
-                    soundBtn.textContent = "🔊 Tắt âm thanh";
-                    soundBtn.setAttribute("aria-label", "Tắt âm thanh video");
-                }
+            function updateSoundButton() {
+                const muted = video.muted;
+                soundBtn.textContent = muted
+                    ? "🔇 Bật âm thanh"
+                    : "🔊 Tắt âm thanh";
+                soundBtn.setAttribute(
+                    "aria-label",
+                    muted ? "Bật âm thanh video" : "Tắt âm thanh video"
+                );
             }
 
-            function keepBackgroundVisible() {
+            function showBackground() {
                 hero.classList.remove("show-video");
                 hero.classList.add("show-background");
             }
 
-            function resetVideoForAutoplay() {
-                video.pause();
+            function showVideo() {
+                hero.classList.remove("show-background");
+                hero.classList.add("show-video");
+            }
+
+            function forceMutedAutoplayMode() {
                 video.muted = true;
-                setSoundButton();
+                video.defaultMuted = true;
+                video.setAttribute("muted", "");
+                video.setAttribute("playsinline", "");
+                video.setAttribute("webkit-playsinline", "");
+                updateSoundButton();
+            }
+
+            async function primeVideo() {
+                forceMutedAutoplayMode();
+
+                try {
+                    const result = video.play();
+                    if (result !== undefined) {
+                        await result;
+                    }
+                    return true;
+                } catch (error) {
+                    console.warn("Mobile chưa cho autoplay video:", error);
+                    return false;
+                }
+            }
+
+            async function revealVideo(id) {
+                if (id !== cycleId) return;
+
+                forceMutedAutoplayMode();
+
+                try {
+                    if (video.readyState === 0) {
+                        video.load();
+                    }
+
+                    // Video đã được chạy ẩn để iPhone/Android cấp quyền autoplay.
+                    // Đủ 5 giây mới tua về 00:00 và đưa video ra màn hình.
+                    try {
+                        video.currentTime = 0;
+                    } catch (_) {}
+
+                    const result = video.play();
+                    if (result !== undefined) {
+                        await result;
+                    }
+
+                    if (id !== cycleId) return;
+                    showVideo();
+                } catch (error) {
+                    // Nếu điện thoại đang chặn autoplay (ví dụ Low Power/Data Saver),
+                    // giữ background thay vì tạo màn hình đen. Lần chạm đầu tiên sẽ mở khóa.
+                    console.warn("Không thể tự phát video trên thiết bị này:", error);
+                    showBackground();
+                }
+            }
+
+            function startBackgroundCountdown() {
+                clearTimer();
+                const id = ++cycleId;
+
+                showBackground();
+
+                // Quan trọng cho mobile: cho video autoplay muted ở phía sau ngay từ đầu.
+                // Background vẫn che video đủ 5 giây.
+                primeVideo();
+
+                timer = setTimeout(() => {
+                    revealVideo(id);
+                }, BACKGROUND_TIME);
+            }
+
+            function resetAfterEnded() {
+                clearTimer();
+                video.pause();
 
                 try {
                     video.currentTime = 0;
-                } catch (error) {
-                    console.warn("Chưa thể đưa video về đầu:", error);
-                }
+                } catch (_) {}
+
+                startBackgroundCountdown();
             }
 
-            function scheduleVideo(delay = BACKGROUND_TIME) {
-                clearTimer();
-                const token = ++cycleToken;
-
-                timer = setTimeout(() => {
-                    if (token !== cycleToken) return;
-                    startVideo(token);
-                }, delay);
-            }
-
-            async function startVideo(token) {
-                clearTimer();
-
-                // Giữ ảnh nền trên màn hình cho tới khi video THỰC SỰ phát được.
-                keepBackgroundVisible();
-                resetVideoForAutoplay();
+            soundBtn.addEventListener("click", async (event) => {
+                event.stopPropagation();
 
                 try {
-                    const playPromise = video.play();
-                    if (playPromise !== undefined) {
-                        await playPromise;
-                    }
-
-                    if (token !== cycleToken) {
-                        video.pause();
-                        return;
-                    }
-
-                    hero.classList.remove("show-background");
-                    hero.classList.add("show-video");
-                } catch (error) {
-                    // Autoplay bị chặn hoặc video chưa tải được: KHÔNG để màn hình đen.
-                    console.warn("Không thể tự phát video, tiếp tục giữ ảnh nền:", error);
-                    keepBackgroundVisible();
-                    resetVideoForAutoplay();
-                    scheduleVideo(BACKGROUND_TIME);
-                }
-            }
-
-            function returnToBackground() {
-                clearTimer();
-                ++cycleToken;
-
-                keepBackgroundVisible();
-                resetVideoForAutoplay();
-
-                // Đợi hiệu ứng trượt về hoàn tất rồi mới tính đủ 5 giây ảnh nền.
-                scheduleVideo(SLIDE_TIME + BACKGROUND_TIME);
-            }
-
-            soundBtn.addEventListener("click", async () => {
-                if (video.paused) {
-                    try {
+                    if (video.paused) {
                         await video.play();
-                    } catch (error) {
-                        console.warn("Chưa thể phát video khi bật âm thanh:", error);
-                        return;
                     }
-                }
 
-                video.muted = !video.muted;
-                setSoundButton();
+                    video.muted = !video.muted;
+                    updateSoundButton();
+                } catch (error) {
+                    console.warn("Không thể bật video/âm thanh:", error);
+                }
             });
 
-            video.addEventListener("ended", returnToBackground);
+            video.addEventListener("ended", resetAfterEnded);
 
             video.addEventListener("error", () => {
-                console.warn("Video gặp lỗi tải/phát. Giữ ảnh nền để tránh màn hình đen.");
-                keepBackgroundVisible();
-                resetVideoForAutoplay();
-                scheduleVideo(BACKGROUND_TIME);
+                console.warn("Không tải được videoweb.mp4");
+                showBackground();
+            });
+
+            // iPhone/Safari có thể chặn autoplay trong Low Power Mode hoặc Data Saver.
+            // Chỉ cần người dùng chạm màn hình một lần, video sẽ được mở khóa ở chế độ muted.
+            const unlockOnFirstInteraction = () => {
+                if (!hero.classList.contains("show-video")) {
+                    primeVideo();
+                }
+            };
+
+            document.addEventListener("touchstart", unlockOnFirstInteraction, {
+                once: true,
+                passive: true
+            });
+
+            document.addEventListener("pointerdown", unlockOnFirstInteraction, {
+                once: true,
+                passive: true
             });
 
             document.addEventListener("visibilitychange", () => {
                 if (document.hidden) {
                     clearTimer();
-                    if (!video.paused) video.pause();
                     return;
                 }
 
                 if (hero.classList.contains("show-video")) {
-                    video.play().catch(() => {
-                        keepBackgroundVisible();
-                        resetVideoForAutoplay();
-                        scheduleVideo(BACKGROUND_TIME);
-                    });
+                    video.play().catch(() => startBackgroundCountdown());
                 } else {
-                    scheduleVideo(BACKGROUND_TIME);
+                    startBackgroundCountdown();
                 }
             });
 
-            // Trạng thái khởi đầu: ảnh nền hiện đủ 5 giây, video đứng ở 00:00 và muted.
-            keepBackgroundVisible();
-            resetVideoForAutoplay();
+            forceMutedAutoplayMode();
             video.load();
-            scheduleVideo(BACKGROUND_TIME);
+            startBackgroundCountdown();
         })();
     </script>
 
