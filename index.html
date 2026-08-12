@@ -828,6 +828,95 @@
                 max-width: 2050px;
             }
         }
+        /* =====================================================
+   FIX MOBILE - NÚT XEM ĐỘI XE PHẢI NẰM BÊN DƯỚI VIDEO
+===================================================== */
+
+@media (max-width: 500px) {
+
+    /* HERO chỉ chứa background + video */
+    .hero {
+        position: relative !important;
+        width: 100% !important;
+        aspect-ratio: 16 / 9 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow: hidden !important;
+    }
+
+    /* TUYỆT ĐỐI ẨN nút desktop trong hero */
+    .hero > .hero-content {
+        display: none !important;
+        visibility: hidden !important;
+        position: absolute !important;
+    }
+
+    /* NÚT MOBILE nằm hoàn toàn bên ngoài hero */
+    .mobile-fleet-btn {
+        display: flex !important;
+
+        position: static !important;
+
+        width: 100% !important;
+        height: 75px !important;
+        min-height: 75px !important;
+
+        margin: 0 !important;
+        padding: 15px 0 !important;
+
+        background: #032c55 !important;
+
+        align-items: center !important;
+        justify-content: center !important;
+
+        overflow: visible !important;
+
+        z-index: 1 !important;
+    }
+
+    /* Nút */
+    .mobile-fleet-btn .hero-btn {
+        display: flex !important;
+
+        position: static !important;
+
+        width: 150px !important;
+        height: 45px !important;
+
+        margin: 0 !important;
+        padding: 0 !important;
+
+        align-items: center !important;
+        justify-content: center !important;
+
+        border: 2px solid #f10606 !important;
+        border-radius: 8px !important;
+
+        background: transparent !important;
+
+        color: #fff132 !important;
+
+        font-size: 16px !important;
+        font-weight: 700 !important;
+
+        z-index: auto !important;
+    }
+
+    /* Phần giới thiệu nằm sau nút */
+    .mobile-intro {
+        display: block !important;
+
+        position: static !important;
+
+        width: 100% !important;
+        min-height: 200px !important;
+
+        margin: 0 !important;
+        padding: 0 !important;
+
+        background: #032c55 !important;
+    }
+}
 
     </style>
 </head>
@@ -904,96 +993,61 @@
 
     <main>
 
+    <!-- BACKGROUND + VIDEO -->
+    <section class="hero">
 
-        <!-- =================================================
-             HERO
+        <div class="hero-background"></div>
 
-             MOBILE:
-             CHỈ CÓ BACKGROUND + VIDEO
-        ================================================== -->
-
-        <section class="hero">
-
-
-            <!-- BACKGROUND -->
-
-            <div class="hero-background"></div>
-
-
-            <!-- NÚT XEM ĐỘI XE - CHỈ PC -->
-
-            <div class="hero-content">
-
-                <a
-                    href="javascript:void(0);"
-                    class="hero-btn"
-                >
-                    XEM ĐỘI XE
-                </a>
-
-            </div>
-
-
-            <!-- VIDEO -->
-
-            <div class="hero-video">
-
-                <video
-                    id="heroVideo"
-                    muted
-                    playsinline
-                    preload="auto"
-                >
-
-                    <source
-                        src="videoweb.mp4"
-                        type="video/mp4"
-                    >
-
-                </video>
-
-
-                <!-- NÚT ÂM THANH -->
-
-                <button id="soundBtn">
-                    🔇 Bật âm thanh
-                </button>
-
-            </div>
-
-        </section>
-
-
-        <!-- =================================================
-             NÚT XEM ĐỘI XE - CHỈ MOBILE
-
-             NẰM NGOÀI HERO
-             => KHÔNG BỊ VIDEO CHE
-             => KHÔNG BỊ BACKGROUND CHE
-        ================================================== -->
-
-        <div class="mobile-fleet-btn">
-
+        <!-- CHỈ DÙNG TRÊN PC -->
+        <div class="hero-content">
             <a
                 href="javascript:void(0);"
                 class="hero-btn"
             >
                 XEM ĐỘI XE
             </a>
-
         </div>
 
+        <!-- VIDEO -->
+        <div class="hero-video">
+            <video
+                id="heroVideo"
+                muted
+                playsinline
+                preload="auto"
+            >
+                <source
+                    src="videoweb.mp4"
+                    type="video/mp4"
+                >
+            </video>
 
-        <!-- =================================================
-             PHẦN GIỚI THIỆU - MOBILE
-        ================================================== -->
+            <button id="soundBtn">
+                🔇 Bật âm thanh
+            </button>
+        </div>
 
-        <section class="mobile-intro">
-
-        </section>
+    </section>
 
 
-    </main>
+    <!-- NÚT NÀY PHẢI Ở NGOÀI HERO -->
+    <div class="mobile-fleet-btn">
+
+        <a
+            href="javascript:void(0);"
+            class="hero-btn"
+        >
+            XEM ĐỘI XE
+        </a>
+
+    </div>
+
+
+    <!-- GIỚI THIỆU -->
+    <section class="mobile-intro">
+    </section>
+
+</main>
 
 
     <!-- =====================================================
