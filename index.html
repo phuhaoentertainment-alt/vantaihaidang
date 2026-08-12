@@ -515,6 +515,440 @@
         .mobile-intro {
             display: none;
         }
+        /* =====================================================
+   MOBILE INTRO - GIỚI THIỆU HẢI ĐĂNG
+===================================================== */
+
+.mobile-intro {
+    overflow: hidden;
+}
+
+
+/* ==============================
+   ẢNH
+============================== */
+
+.mobile-intro-image {
+    position: relative;
+
+    width: 100%;
+    height: 230px;
+
+    overflow: hidden;
+
+    background: #021f3d;
+}
+
+
+.mobile-intro-image img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    transform: scale(1.02);
+}
+
+
+.mobile-intro-image-overlay {
+    position: absolute;
+    inset: 0;
+
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(0, 25, 50, 0.05) 20%,
+            rgba(3, 44, 85, 0.45) 65%,
+            #032c55 100%
+        );
+}
+
+
+.mobile-intro-badge {
+    position: absolute;
+
+    left: 20px;
+    bottom: 22px;
+
+    padding: 8px 14px;
+
+    border-left: 4px solid #d71920;
+
+    background:
+        rgba(3, 44, 85, 0.85);
+
+    color: #ffffff;
+
+    font-family:
+        "Roboto Condensed",
+        Arial,
+        sans-serif;
+
+    font-size: 15px;
+    font-weight: 800;
+
+    letter-spacing: 1.3px;
+
+    backdrop-filter: blur(5px);
+}
+
+
+/* ==============================
+   KHỐI NỘI DUNG
+============================== */
+
+.mobile-intro-content {
+    position: relative;
+
+    padding:
+        12px
+        22px
+        38px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #032c55 0%,
+            #02294f 100%
+        );
+
+    color: #ffffff;
+}
+
+
+/* ==============================
+   TIÊU ĐỀ NHỎ
+============================== */
+
+.mobile-intro-small-title {
+    display: block;
+
+    margin-bottom: 10px;
+
+    color: #ffcf40;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    letter-spacing: 2px;
+}
+
+
+/* ==============================
+   TIÊU ĐỀ CHÍNH
+============================== */
+
+.mobile-intro-content h2 {
+    max-width: 330px;
+
+    font-family:
+        "Roboto Condensed",
+        Arial,
+        sans-serif;
+
+    font-size: 31px;
+    font-weight: 800;
+
+    line-height: 1.08;
+
+    letter-spacing: 0.2px;
+}
+
+
+.mobile-intro-content h2 span {
+    display: block;
+
+    color: #ffffff;
+}
+
+
+.mobile-intro-line {
+    width: 55px;
+    height: 4px;
+
+    margin:
+        16px
+        0
+        18px;
+
+    border-radius: 20px;
+
+    background: #d71920;
+}
+
+
+/* ==============================
+   MÔ TẢ
+============================== */
+
+.mobile-intro-description {
+    color: #d9e4ef;
+
+    font-size: 15px;
+
+    line-height: 1.72;
+}
+
+
+.mobile-intro-description strong {
+    color: #ffffff;
+
+    font-weight: 800;
+}
+
+
+/* ==============================
+   3 THÔNG SỐ
+============================== */
+
+.mobile-stats {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 8px;
+
+    margin:
+        26px
+        0;
+}
+
+
+.mobile-stat {
+    min-height: 115px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    padding:
+        13px
+        6px;
+
+    text-align: center;
+
+    border:
+        1px solid
+        rgba(255,255,255,0.12);
+
+    border-radius: 10px;
+
+    background:
+        rgba(255,255,255,0.055);
+
+    box-shadow:
+        inset
+        0
+        1px
+        0
+        rgba(255,255,255,0.08);
+}
+
+
+.mobile-stat strong {
+    color: #ffcf40;
+
+    font-family:
+        "Roboto Condensed",
+        Arial,
+        sans-serif;
+
+    font-size: 25px;
+    font-weight: 800;
+
+    line-height: 1;
+}
+
+
+.mobile-stat span {
+    margin-top: 6px;
+
+    color: #ffffff;
+
+    font-size: 11px;
+    font-weight: 800;
+
+    letter-spacing: 0.8px;
+}
+
+
+.mobile-stat small {
+    margin-top: 7px;
+
+    color: #aebed0;
+
+    font-size: 9px;
+
+    line-height: 1.35;
+}
+
+
+/* ==============================
+   THÔNG ĐIỆP
+============================== */
+
+.mobile-message {
+    position: relative;
+
+    display: flex;
+
+    gap: 13px;
+
+    margin-top: 5px;
+
+    padding:
+        20px
+        17px;
+
+    border:
+        1px solid
+        rgba(255,255,255,0.1);
+
+    border-radius: 12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,0.07),
+            rgba(255,255,255,0.025)
+        );
+}
+
+
+.mobile-message::before {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    top: 17px;
+    bottom: 17px;
+
+    width: 3px;
+
+    background: #d71920;
+
+    border-radius: 5px;
+}
+
+
+.mobile-message-mark {
+    color: #ffcf40;
+
+    font-family: Georgia, serif;
+
+    font-size: 42px;
+
+    line-height: 0.8;
+}
+
+
+.mobile-message h3 {
+    color: #ffffff;
+
+    font-family:
+        "Roboto Condensed",
+        Arial,
+        sans-serif;
+
+    font-size: 18px;
+    font-weight: 800;
+
+    line-height: 1.25;
+
+    margin-bottom: 7px;
+}
+
+
+.mobile-message p {
+    color: #afc0d1;
+
+    font-size: 12px;
+
+    line-height: 1.55;
+}
+
+
+/* ==============================
+   NÚT TÌM HIỂU
+============================== */
+
+.mobile-about-btn {
+    width: 100%;
+
+    min-height: 55px;
+
+    margin-top: 24px;
+
+    padding:
+        0
+        18px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    border:
+        1px solid
+        rgba(255,255,255,0.20);
+
+    border-radius: 8px;
+
+    background:
+        #ffffff;
+
+    color: #032c55;
+
+    text-decoration: none;
+
+    font-family:
+        "Roboto Condensed",
+        Arial,
+        sans-serif;
+
+    font-size: 15px;
+    font-weight: 800;
+
+    letter-spacing: 0.4px;
+
+    box-shadow:
+        0
+        10px
+        28px
+        rgba(0,0,0,0.16);
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease;
+}
+
+
+.mobile-about-btn:active {
+    transform:
+        scale(0.98);
+}
+
+
+.mobile-about-arrow {
+    width: 32px;
+    height: 32px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #d71920;
+
+    color: #ffffff;
+
+    font-size: 19px;
+}
 
 
         /* =====================================================
@@ -1034,7 +1468,102 @@
 
         <section class="mobile-intro">
 
-        </section>
+    <!-- ẢNH GIỚI THIỆU -->
+    <div class="mobile-intro-image">
+        <img
+            src="image/background.jpg"
+            alt="Đội xe Vận Tải Hải Đăng"
+        >
+
+        <div class="mobile-intro-image-overlay"></div>
+
+        <div class="mobile-intro-badge">
+            VẬN TẢI HẢI ĐĂNG
+        </div>
+    </div>
+
+
+    <!-- NỘI DUNG -->
+    <div class="mobile-intro-content">
+
+        <span class="mobile-intro-small-title">
+            NĂNG LỰC VẬN CHUYỂN
+        </span>
+
+        <h2>
+            Giải pháp vận chuyển
+            <span>cho doanh nghiệp</span>
+        </h2>
+
+        <div class="mobile-intro-line"></div>
+
+        <p class="mobile-intro-description">
+            Với đội xe tải từ
+            <strong>1,5 - 18 tấn</strong>,
+            gồm xe thùng kín và xe thùng bạt,
+            Hải Đăng đáp ứng linh hoạt nhu cầu
+            vận chuyển hàng hóa trên toàn miền Bắc.
+        </p>
+
+
+        <!-- THÔNG SỐ -->
+        <div class="mobile-stats">
+
+            <div class="mobile-stat">
+                <strong>1,5 - 18</strong>
+                <span>TẤN</span>
+                <small>Đa dạng tải trọng</small>
+            </div>
+
+            <div class="mobile-stat">
+                <strong>02</strong>
+                <span>LOẠI XE</span>
+                <small>Thùng kín & thùng bạt</small>
+            </div>
+
+            <div class="mobile-stat">
+                <strong>24/7</strong>
+                <span>ĐIỀU PHỐI</span>
+                <small>Chủ động vận hành</small>
+            </div>
+
+        </div>
+
+
+        <!-- THÔNG ĐIỆP -->
+        <div class="mobile-message">
+
+            <div class="mobile-message-mark">
+                “
+            </div>
+
+            <div>
+                <h3>
+                    Mỗi chuyến hàng là một trách nhiệm.
+                </h3>
+
+                <p>
+                    Hải Đăng chú trọng khả năng điều phối,
+                    thời gian giao nhận và sự chủ động
+                    trong từng hành trình.
+                </p>
+            </div>
+
+        </div>
+
+
+        <!-- NÚT -->
+        <a
+            href="#gioi-thieu"
+            class="mobile-about-btn"
+        >
+            <span>TÌM HIỂU VỀ HẢI ĐĂNG</span>
+            <span class="mobile-about-arrow">→</span>
+        </a>
+
+    </div>
+
+</section>
 
 
     </main>
