@@ -801,19 +801,16 @@
             <div class="hero-video">
 
                 <video
-                    id="heroVideo"
-                    muted
-                    playsinline
-                    webkit-playsinline
-                    preload="auto"
-                >
-                    <source
-                        src="videoweb.mp4"
-                        type="video/mp4"
-                    >
-                    Trình duyệt của bạn
-                    không hỗ trợ video.
-                </video>
+    id="heroVideo"
+    muted
+    playsinline
+    preload="auto"
+>
+    <source
+        src="videoweb.mp4"
+        type="video/mp4"
+    >
+</video>
                 <!-- ÂM THANH -->
                 <button
                     class="sound-btn"
@@ -847,143 +844,99 @@
          JAVASCRIPT
     ========================================================= -->
     <script>
-    const hero = document.getElementById("hero");
-    const video = document.getElementById("heroVideo");
-    const soundBtn = document.getElementById("soundBtn");
-
-    const BACKGROUND_TIME = 5000;
-
+        const hero = document.getElementById("hero");
+        const video = document.getElementById("heroVideo");
+        const soundBtn = document.getElementById("soundBtn");
+        const BACKGROUND_TIME = 5000;
     /* =====================================================
        ÉP TRẠNG THÁI VIDEO PHÙ HỢP MOBILE
     ===================================================== */
-
-    video.muted = true;
-    video.defaultMuted = true;
-    video.playsInline = true;
-
-    video.setAttribute("muted", "");
-    video.setAttribute("playsinline", "");
-    video.setAttribute("webkit-playsinline", "");
-
-    video.load();
-
+            video.muted = true;
+            video.defaultMuted = true;
+            video.playsInline = true;
+            video.setAttribute("muted", "");
+            video.setAttribute("playsinline", "");
+            video.setAttribute("webkit-playsinline", "");
+            video.load();
 
     /* =====================================================
        PHÁT VIDEO
-    ===================================================== */
-
+    ==================================================== */
     async function playHeroVideo() {
-
         hero.classList.remove("show-background");
         hero.classList.add("show-video");
-
         video.currentTime = 0;
         video.muted = true;
-
         try {
-
             await video.play();
-
         } catch (error) {
-
             console.log("Mobile chưa cho phát video:", error);
-
             /*
                Nếu video chưa load đủ,
                chờ video sẵn sàng rồi thử phát lại.
             */
-
             video.addEventListener(
                 "canplay",
                 () => {
-
                     video.muted = true;
-
                     video.play().catch(err => {
                         console.log(
                             "Vẫn không thể autoplay:",
                             err
                         );
                     });
-
                 },
                 { once: true }
             );
-
         }
-
     }
-
-
     /* =====================================================
        QUAY LẠI BACKGROUND
     ===================================================== */
-
     function showBackground() {
-
         hero.classList.remove("show-video");
         hero.classList.add("show-background");
-
         video.pause();
         video.currentTime = 0;
-
     }
-
-
     /* =====================================================
        MỞ WEB
        BACKGROUND 5S → VIDEO
     ===================================================== */
-
     setTimeout(
         playHeroVideo,
         BACKGROUND_TIME
     );
-
-
     /* =====================================================
        VIDEO HẾT
        → BACKGROUND 5S
        → VIDEO
     ===================================================== */
-
     video.addEventListener(
         "ended",
         () => {
-
             showBackground();
-
             setTimeout(
                 playHeroVideo,
                 BACKGROUND_TIME
             );
-
         }
     );
-
 
     /* =====================================================
        BẬT / TẮT ÂM THANH
     ===================================================== */
-
     soundBtn.addEventListener(
         "click",
         () => {
-
             video.muted = !video.muted;
-
             if (video.muted) {
-
                 soundBtn.textContent =
                     "🔇 Bật âm thanh";
-
             } else {
-
                 soundBtn.textContent =
                     "🔊 Tắt âm thanh";
-
             }
-
         }
     );
 </script>
