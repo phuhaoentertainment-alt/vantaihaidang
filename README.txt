@@ -38,3 +38,13 @@ CLEAN FINAL V3:
 - Nhãn phụ có gạch: tăng rõ lên 18–24px, khoảng cách dưới 18–28px.
 - Tiêu đề lớn: line-height tăng lên 1.22 để các dòng và dấu tiếng Việt không chạm nhau.
 - Footer: nội dung thường 18–22px, tên công ty 24–32px; mobile vẫn giữ đủ lớn.
+
+
+V7 = GIAO DIỆN V3 GIỮ NGUYÊN
+- Không thay layout, màu sắc, kích thước, breakpoint hay video của V3.
+- Font vẫn là đúng hệ V3: Inter cho nội dung, Roboto Condensed cho tiêu đề/menu.
+- Chỉ đổi cách tải Google Fonts: bỏ @import và dùng <link> + preconnect trong cả 5 trang để PC/iPhone đồng bộ hơn.
+- 2 số điện thoại giữ nguyên tel: và toàn bộ 2 ô liên hệ nhanh vẫn bấm gọi trực tiếp.
+- Email ở khối thông tin và ô Email gần cuối mở Gmail Compose, điền sẵn:
+  To: haidang051023@gmail.com
+  Subject: Yêu cầu tư vấn vận chuyển
