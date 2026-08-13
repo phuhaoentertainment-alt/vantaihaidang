@@ -32,9 +32,3 @@ CLEAN FINAL V2 - CHỈNH SỬA UI:
 2. Tiêu đề lớn tăng line-height để dấu tiếng Việt không chạm/che nhau khi xuống dòng.
 3. Footer: tên công ty, slogan, hotline và email to hơn, dễ đọc hơn.
 4. Phần “Tầm nhìn · Sứ mệnh · Giá trị cốt lõi” chuyển tiêu đề sang màu trắng trên nền tối để tương phản rõ.
-
-
-CLEAN FINAL V3:
-- Nhãn phụ có gạch: tăng rõ lên 18–24px, khoảng cách dưới 18–28px.
-- Tiêu đề lớn: line-height tăng lên 1.22 để các dòng và dấu tiếng Việt không chạm nhau.
-- Footer: nội dung thường 18–22px, tên công ty 24–32px; mobile vẫn giữ đủ lớn.
